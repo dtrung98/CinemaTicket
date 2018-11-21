@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FDF0D5">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@android:color/transparent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:paddingBottom="20dp"
+            android:paddingTop="30dp"
+            android:background="@android:color/transparent"
+            android:layout_gravity="center"
+            android:scaleType="centerInside"
+            android:src="@drawable/movie" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+
+            android:text="@string/team_name"
+            android:fontFamily="@font/postnobillsjaffna_extrabold"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#922A23"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp"
+
+            android:text="@string/slogan"
+            android:textSize="18sp"
+            android:textColor="#922A23"/>
+
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+         >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/username"
+                android:textSize="18sp"
+                android:textStyle="bold"
+
+                android:layout_marginLeft="30dp"
+                android:textColor="#222"/>
+
+            <EditText
+                android:id="@+id/ediUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:maxLines="1"
+                android:text="dtrung98"
+
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/password"
+                android:textSize="18sp"
+
+                android:layout_marginLeft="30dp"
+                android:textStyle="bold"
+                android:textColor="#222"/>
+
+            <EditText
+                android:id="@+id/ediPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:text="dtrung98"
+                android:textColor="@android:color/black"
+                android:maxLines="1"
+                android:textSize="18sp"
+                android:inputType="textPassword"/>
+
+            <Button
+                android:id="@+id/btn_sign_in"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:text="@string/btn_sign_in"
+                android:textSize="17sp"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:background="@drawable/btn_create"/>
+
+            <TextView
+                android:id="@+id/forgot_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:text="@string/string_1"
+                android:textSize="16sp"
+                android:clickable="true"
+                android:textColor="@android:color/black"
+                android:onClick="forgot_password"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/string_2"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/black"
+                    android:gravity="right"
+                    android:paddingRight="10dp"/>
+
+                <TextView
+                    android:id="@+id/sign_up"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/string_3"
+                    android:textSize="16sp"
+                    android:textColor="#000000"
+                    android:textStyle="bold"
+                    android:clickable="true"
+                    android:onClick="sign_up"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

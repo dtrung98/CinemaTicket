@@ -341,6 +341,7 @@
             android:textColor="@android:color/white"
             android:textSize="18sp" />
         <ImageView
+            android:id="@+id/menu_view"
             android:layout_marginRight="5dp"
             android:layout_width="30dp"
             android:layout_height="30dp"

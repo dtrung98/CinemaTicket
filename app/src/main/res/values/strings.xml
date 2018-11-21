@@ -3,4 +3,28 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="team_name">Cinema Ticket</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+
+    <string name="string_0">YOU ARE...</string>
+    <string name="admin_choice">Admin</string>
+    <string name="user_choice">User</string>
+
+    <string name="slogan">Enjoy the best cinema ever</string>
+    <string name="string_1">Forgot password?</string>
+    <string name="string_2">Don\'t have an account?</string>
+    <string name="string_3">Sign Up</string>
+
+    <string name="user_signup">User Sign Up</string>
+    <string name="admin_signup">Admin Sign Up</string>
+    <string name="full_name">Full Name</string>
+    <string name="id_work">Work ID</string>
+    <string name="email">Email</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="string_4">Or sign up with...</string>
+    <string name="string_5">Already have an account?</string>
+    <string name="string_6">Sign In</string>
+    <string name="btn_create">CREATE ACCOUNT</string>
+    <string name="btn_sign_in">SIGN IN</string>
 </resources>

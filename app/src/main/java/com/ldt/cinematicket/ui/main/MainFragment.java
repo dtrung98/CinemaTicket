@@ -13,10 +13,13 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.ldt.cinematicket.BitmapEditor;
@@ -28,6 +31,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     private View root;
     private ImageView imageView;
 private View showTimeTextView,time2,time3,time4;
+private ImageView menu_view;
     public static MainFragment newInstance() {
         return new MainFragment();
     }
@@ -42,6 +46,37 @@ private View showTimeTextView,time2,time3,time4;
         time2= root.findViewById(R.id.time_2);
         time3 = root.findViewById(R.id.time_3);
         time4 = root.findViewById(R.id.time_4);
+        menu_view = root.findViewById(R.id.menu_view);
+        Thread x_thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        });
+        x_thread.start();
+        menu_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PopupMenu popupMenu = new PopupMenu(getActivity(),view);
+                popupMenu.inflate(R.menu.my_menu);
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        String s;
+                        switch (menuItem.getItemId()) {
+                            case R.id.line1: s= "Line 1"; break;
+                            case R.id.line2: s="Line 2";break;
+                            case R.id.line3: s="Line 3";break;
+                            default:s="Line 4";break;
+                        }
+
+                        Toast.makeText(getActivity(),s,Toast.LENGTH_SHORT).show();
+                        return true;
+                    }
+                });
+                popupMenu.show();
+            }
+        });
         showTimeTextView.setOnClickListener(this);
         time2.setOnClickListener(this);
         time3.setOnClickListener(this);

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,7 @@ import android.widget.TextView;
 
 import com.ldt.cinematicket.R;
 public class AsyncFragment extends Fragment implements View.OnClickListener {
-
+private static final String TAG = "AsyncFragment";
     public AsyncFragment() {
         // Required empty public constructor
     }
@@ -54,7 +55,7 @@ EditText editText;
         protected Void doInBackground(Integer... integers) {
             for(int i=0;i<=toValue;i++) {
 
-                this.publishProgress(new Integer[]{i});
+                this.publishProgress(i);
             }
             return null;
         }
@@ -71,8 +72,10 @@ EditText editText;
 
         @Override
         protected void onProgressUpdate(Integer... integers) {
-            Integer value = (Integer) integers[0];
-            textView.setText(((int)(value/(toValue+0.0f)*100))+"%");
+            Integer value =integers[0];
+          //  Log.d(TAG, "value = " + value);
+            float percent = value/(toValue+0.0f)*100;
+            textView.setText((int)percent+"%");
             progressBar.setProgress(value);
         }
 
