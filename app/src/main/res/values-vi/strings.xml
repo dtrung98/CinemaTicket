@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">Cinema Ticket</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="team_name">Cinema Ticket</string>
+    <string name="username">Tài khoản</string>
+    <string name="password">Mật khẩu</string>
+
+    <string name="string_0">Bạn là ...</string>
+    <string name="admin_choice">Admin</string>
+    <string name="user_choice">Khách hàng</string>
+
+    <string name="slogan">Trải nghiệm rạp chiếu phim tốt nhất</string>
+    <string name="string_1">Quên mật khẩu?</string>
+    <string name="string_2">Chưa có tài khoản?</string>
+    <string name="string_3">Đăng ký</string>
+
+    <string name="user_signup">Người dùng đăng ký</string>
+    <string name="admin_signup">Admin đăng ký</string>
+    <string name="full_name">Họ tên đầy đủ</string>
+    <string name="id_work">ID làm việc</string>
+    <string name="email">Thư điện tử</string>
+    <string name="confirm_password">Xác nhật mật khẩu</string>
+    <string name="string_4">Hoặc đăng ký bằng ...</string>
+    <string name="string_5">Đã có tài khoản?</string>
+    <string name="string_6">Đăng nhập</string>
+    <string name="btn_create">Tạo tài khoản</string>
+    <string name="btn_sign_in">ĐĂNG NHẬP</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="trending">Xu hướng</string>
+    <string name="cinema">Rạp chiếu phim</string>
+    <string name="my_profile">Cá nhân</string>
+    <string name="home">Home</string>
+    <string name="now_showing">Đang chiếu</string>
+    <string name="up_coming">Sắp chiếu</string>
+    <string name="book">Đặt vé</string>
+</resources>

@@ -2,11 +2,26 @@
 <resources>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#FF3B30</color>
     <color name="a_white">#F5F5F5</color>
     <item name="FlatWhite" type="color">#F5F5F5</item>
     <color name="focus_color">#FF0B19</color>
     <color name="panel_background">#2C2C2C</color>
     <color name="main_background">#212121</color>
     <color name="text_not_focus">#bbb</color>
+
+    <color name="heavy_red">#AE2120</color>
+    <color name="quite_red">#D43732</color>
+    <color name="quite_green">#559E74</color>
+    <color name="heavy_gray">#947062</color>
+    <color name="quite_gray">#B27F71</color>
+    <color name="quite_dark">#1c1c1c</color>
+
+    <color name="gold">#FFE200</color>
+    <color name="heavy_gold">#FFAA00</color>
+    <color name="yellow">#FF7D00</color>
+    <color name="heavy_yellow">#FF3300</color>
+    <color name="pink">#FF0042</color>
+    <color name="pink_light_1">#ff0057</color>
+
 </resources>

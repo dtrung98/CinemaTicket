@@ -1,4 +1,4 @@
-package com.ldt.cinematicket.views;
+package com.ldt.cinematicket.ui.widget;
 
 import android.content.Context;
 import android.graphics.Canvas;

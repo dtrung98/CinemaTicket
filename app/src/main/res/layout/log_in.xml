@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FDF0D5">
+    android:background="@android:color/black">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@android:color/transparent">
-
+        <requestFocus/>
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:paddingBottom="20dp"
-            android:paddingTop="30dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
             android:background="@android:color/transparent"
             android:layout_gravity="center"
             android:scaleType="centerInside"
-            android:src="@drawable/movie" />
+            android:src="@drawable/movie_pop_corn" />
 
         <TextView
             android:layout_width="match_parent"
@@ -29,23 +30,22 @@
             android:fontFamily="@font/postnobillsjaffna_extrabold"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="#922A23"/>
-
+            android:textColor="@color/heavy_yellow"/>
         <TextView
             android:layout_width="match_parent"
             android:gravity="center"
-            android:layout_height="wrap_content"
-            android:paddingBottom="20dp"
-
+            android:layout_height="30dp"
             android:text="@string/slogan"
-            android:textSize="18sp"
-            android:textColor="#922A23"/>
+            android:textSize="15sp"
+            android:textColor="@color/yellow"/>
 
         <LinearLayout
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:descendantFocusability="beforeDescendants"
+            android:focusableInTouchMode="true"
          >
 
             <TextView
@@ -56,55 +56,63 @@
                 android:textStyle="bold"
 
                 android:layout_marginLeft="30dp"
-                android:textColor="#222"/>
+                android:textColor="@color/heavy_yellow"/>
 
             <EditText
                 android:id="@+id/ediUsername"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginTop="12dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:maxLines="1"
-                android:text="dtrung98"
-
+                android:background="@drawable/rounded_corner_without_border_dark"
+                android:text=""
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
                 android:textColor="@android:color/black"
-                android:textSize="18sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:text="@string/password"
                 android:textSize="18sp"
-
                 android:layout_marginLeft="30dp"
                 android:textStyle="bold"
-                android:textColor="#222"/>
+                android:textColor="@color/heavy_yellow"/>
 
             <EditText
                 android:id="@+id/ediPassword"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
-                android:text="dtrung98"
+                android:text=""
+                android:layout_marginTop="12dp"
+                android:background="@drawable/rounded_corner_without_border_dark"
                 android:textColor="@android:color/black"
                 android:maxLines="1"
-                android:textSize="18sp"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:textSize="14sp"
                 android:inputType="textPassword"/>
 
             <Button
                 android:id="@+id/btn_sign_in"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="40dp"
                 android:text="@string/btn_sign_in"
                 android:textSize="17sp"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold"
-                android:background="@drawable/btn_create"/>
-
+                android:background="@drawable/btn_create"
+                />
             <TextView
                 android:id="@+id/forgot_password"
                 android:layout_width="wrap_content"
@@ -114,7 +122,7 @@
                 android:text="@string/string_1"
                 android:textSize="16sp"
                 android:clickable="true"
-                android:textColor="@android:color/black"
+                android:textColor="@color/quite_red"
                 android:onClick="forgot_password"/>
 
             <LinearLayout
@@ -128,7 +136,7 @@
                     android:layout_marginTop="8dp"
                     android:text="@string/string_2"
                     android:textSize="16sp"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/text_not_focus"
                     android:gravity="right"
                     android:paddingRight="10dp"/>
 
@@ -140,10 +148,8 @@
                     android:layout_marginTop="8dp"
                     android:text="@string/string_3"
                     android:textSize="16sp"
-                    android:textColor="#000000"
-                    android:textStyle="bold"
-                    android:clickable="true"
-                    android:onClick="sign_up"/>
+                    android:textColor="@color/quite_red"
+                    android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

@@ -1,10 +1,8 @@
-package com.ldt.cinematicket.ui.main;
+package com.ldt.cinematicket.ui.main.book;
 
 
 import android.os.Bundle;
 
-import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
@@ -12,10 +10,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.ldt.cinematicket.R;
-import com.ldt.cinematicket.views.SeatPicker;
+import com.ldt.cinematicket.ui.widget.MotionLayout;
+import com.ldt.cinematicket.ui.widget.SeatPicker;
 import com.tuyenmonkey.mkloader.MKLoader;
 
 /**
@@ -46,7 +44,7 @@ private static void lg(String value) {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        root = (MotionLayout) inflater.inflate(R.layout.fragment_choose_seat, container, false);
+        root = (MotionLayout) inflater.inflate(R.layout.choose_seat, container, false);
         root.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

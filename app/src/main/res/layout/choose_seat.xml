@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.ldt.cinematicket.ui.main.MotionLayout
+<com.ldt.cinematicket.ui.widget.MotionLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/transparent"
-    tools:context=".ui.main.ChooseSeat"
+    tools:context=".ui.main.book.ChooseSeat"
     android:paddingLeft="12dp"
     android:paddingRight="12dp"
     android:paddingTop="50dp"
@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.ldt.cinematicket.views.SeatPicker
+            <com.ldt.cinematicket.ui.widget.SeatPicker
                 android:id="@+id/seat_picker"
                 android:layout_width="370dp"
                 android:layout_height="370dp"
@@ -71,4 +71,4 @@
         </FrameLayout>
 
     </LinearLayout>
-</com.ldt.cinematicket.ui.main.MotionLayout>
+</com.ldt.cinematicket.ui.widget.MotionLayout>

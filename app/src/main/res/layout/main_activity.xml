@@ -1,7 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity" />
+    tools:context=".ui.main.HomeActivity"
+    android:background="@android:color/black">
+
+    <TextView
+        android:id="@+id/message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="@string/trending"
+        android:textSize="26sp"
+        android:textColor="@color/FlatWhite"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <android.support.v4.view.ViewPager
+        android:id="@+id/bottom_view_pager"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/message"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        app:itemIconSize="28dp"
+        android:background="@color/quite_red"
+        app:itemIconTint="@color/bottom_navigation_icon_color"
+        app:labelVisibilityMode="unlabeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/navigation"
+        app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"/>
+
+</android.support.constraint.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.ldt.cinematicket.ui.main;
+package com.ldt.cinematicket.ui.widget;
 
 import android.animation.Animator;
 import android.animation.ValueAnimator;
@@ -6,13 +6,12 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.ldt.cinematicket.BitmapEditor;
+import com.ldt.cinematicket.util.BitmapEditor;
 
 public class MotionLayout extends FrameLayout {
     public interface MotionListener {

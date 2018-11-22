@@ -27,4 +27,13 @@
     <string name="string_6">Sign In</string>
     <string name="btn_create">CREATE ACCOUNT</string>
     <string name="btn_sign_in">SIGN IN</string>
+    <string name="title_activity_home">HomeActivity</string>
+
+    <string name="trending">Trending</string>
+    <string name="cinema">Cinema</string>
+    <string name="my_profile">My Profile</string>
+    <string name="home">Home</string>
+    <string name="now_showing">Now showing</string>
+    <string name="up_coming">Up coming</string>
+    <string name="book">Book</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.ldt.cinematicket;
+package com.ldt.cinematicket.util;
 
 import android.app.Activity;
 import android.content.Context;

@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ldt.cinematicket.ui.main.MainFragment"
+    tools:context="com.ldt.cinematicket.ui.main.book.BookingFragment"
     android:background="@color/main_background">
 
     <android.support.design.widget.AppBarLayout
@@ -257,7 +257,7 @@
             android:paddingLeft="18dp"
             android:paddingTop="6dp"
             android:paddingBottom="6dp"
-            android:background="@drawable/rouned_corner_without_border_dark">
+            android:background="@drawable/rounded_corner_without_border_dark">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

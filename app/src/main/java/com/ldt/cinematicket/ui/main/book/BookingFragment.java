@@ -1,10 +1,7 @@
-package com.ldt.cinematicket.ui.main;
+package com.ldt.cinematicket.ui.main.book;
 
-import android.arch.lifecycle.ViewModelProviders;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,25 +19,26 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.ldt.cinematicket.BitmapEditor;
+import com.ldt.cinematicket.util.BitmapEditor;
 import com.ldt.cinematicket.R;
 
-public class MainFragment extends Fragment implements View.OnClickListener {
+public class BookingFragment extends Fragment implements View.OnClickListener {
+    private static final String TAG="BookingFragment";
 
-    private MainViewModel mViewModel;
+
     private View root;
     private ImageView imageView;
 private View showTimeTextView,time2,time3,time4;
 private ImageView menu_view;
-    public static MainFragment newInstance() {
-        return new MainFragment();
+    public static BookingFragment newInstance() {
+        return new BookingFragment();
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        root= inflater.inflate(R.layout.main_fragment, container, false);
+        root= inflater.inflate(R.layout.movie_detail, container, false);
         toolbar = root.findViewById(R.id.toolbar);
         showTimeTextView = root.findViewById(R.id.show_time_textView);
         time2= root.findViewById(R.id.time_2);
@@ -105,9 +103,7 @@ private ImageView menu_view;
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-        // TODO: Use the ViewModel
-    }
+         }
 
     public void ShowTimeViewOnClick(View view) {
     }
@@ -115,7 +111,8 @@ private ImageView menu_view;
     @Override
     public void onClick(View view) {
 getActivity().getSupportFragmentManager().beginTransaction()
-        .add(R.id.container, ChooseSeat.createInstance((TextView) view))
+        .replace(R.id.container, ChooseSeat.createInstance((TextView) view))
+        .addToBackStack(TAG)
         .commitNow();
     }
 }
