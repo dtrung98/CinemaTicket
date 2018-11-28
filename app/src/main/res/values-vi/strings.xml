@@ -35,4 +35,5 @@
     <string name="now_showing">Đang chiếu</string>
     <string name="up_coming">Sắp chiếu</string>
     <string name="book">Đặt vé</string>
+    <string name="book_now">Đặt ngay</string>
 </resources>
