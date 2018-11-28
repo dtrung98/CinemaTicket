@@ -7,7 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
 import com.ldt.cinematicket.R;
-import com.ldt.cinematicket.ui.main.HomeActivity;
+import com.ldt.cinematicket.ui.main.MainActivity;
 import com.ncapdevi.fragnav.FragNavController;
 
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ public class LogInOutActivity extends AppCompatActivity {
         super.onBackPressed();
     }
     public void goToHomeScreen() {
-        Intent intent = new Intent(this,HomeActivity.class);
+        Intent intent = new Intent(this,MainActivity.class);
         finish();
         startActivity(intent);
     }

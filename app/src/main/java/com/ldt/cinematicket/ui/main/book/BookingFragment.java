@@ -38,7 +38,7 @@ private ImageView menu_view;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        root= inflater.inflate(R.layout.movie_detail, container, false);
+        root= inflater.inflate(R.layout.booking, container, false);
         toolbar = root.findViewById(R.id.toolbar);
         showTimeTextView = root.findViewById(R.id.show_time_textView);
         time2= root.findViewById(R.id.time_2);

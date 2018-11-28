@@ -3,19 +3,41 @@ package com.ldt.cinematicket.ui.main;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.ldt.cinematicket.R;
+import com.ldt.cinematicket.ui.inout.AccountOptionFragment;
 import com.ldt.cinematicket.ui.main.root.BottomPagerAdapter;
+import com.ncapdevi.fragnav.FragNavController;
 
-public class HomeActivity extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class MainActivity extends AppCompatActivity {
+
+    private FragNavController mFNController;
 
     private TextView mTextMessage;
     BottomPagerAdapter mBottomAdapter;
     ViewPager mBottomPager;
+
+
+    @Override
+    public void onBackPressed() {
+        if(!mFNController.isRootFragment()) mFNController.popFragment();
+        else
+            super.onBackPressed();
+    }
+    public void pushFragment(Fragment fragment) {
+        if(mFNController!=null) mFNController.pushFragment(fragment);
+    }
+
+    public void popFragment() {
+        if(mFNController!=null) mFNController.popFragment();
+    }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -51,6 +73,15 @@ public class HomeActivity extends AppCompatActivity {
 
         BottomNavigationView navigation =  findViewById(R.id.bottom_navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        initBackStack(savedInstanceState);
+    }
+    private void initBackStack(Bundle savedInstanceState) {
+        mFNController = new FragNavController(getSupportFragmentManager(),R.id.container);
+        ArrayList<Fragment> rootFragments = new ArrayList<>();
+        rootFragments.add(AccountOptionFragment.newInstance());
+        mFNController.setRootFragments(rootFragments);
+        mFNController.initialize(0,savedInstanceState);
     }
 
 }

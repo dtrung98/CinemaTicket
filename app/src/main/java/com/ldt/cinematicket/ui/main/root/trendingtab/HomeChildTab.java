@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 
 import com.ldt.cinematicket.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class HomeChildTab extends Fragment{
 
     public static HomeChildTab newInstance() {
@@ -21,5 +24,11 @@ public class HomeChildTab extends Fragment{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.home_child_tab,container,false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+      //  ButterKnife.bind(this,view);
     }
 }
