@@ -16,7 +16,7 @@
     <string name="string_2">Don\'t have an account?</string>
     <string name="string_3">Sign Up</string>
 
-    <string name="user_signup">User Sign Up</string>
+    <string name="user_sign_up">Sign Up</string>
     <string name="admin_signup">Admin Sign Up</string>
     <string name="full_name">Full Name</string>
     <string name="id_work">Work ID</string>

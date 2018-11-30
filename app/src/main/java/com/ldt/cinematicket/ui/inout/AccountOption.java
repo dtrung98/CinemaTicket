@@ -10,10 +10,10 @@ import android.view.ViewGroup;
 
 import com.ldt.cinematicket.R;
 
-public class AccountOptionFragment extends Fragment {
+public class AccountOption extends Fragment {
 
-    public static AccountOptionFragment newInstance(){
-        return new AccountOptionFragment();
+    public static AccountOption newInstance(){
+        return new AccountOption();
     }
 
     @Nullable

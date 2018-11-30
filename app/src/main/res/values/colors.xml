@@ -6,7 +6,7 @@
     <color name="a_white">#F5F5F5</color>
     <item name="FlatWhite" type="color">#F5F5F5</item>
     <color name="focus_color">#FF0B19</color>
-    <color name="panel_background">#2C2C2C</color>
+    <color name="panel_background">#090909</color>
     <color name="main_background">#212121</color>
     <color name="text_not_focus">#bbb</color>
 

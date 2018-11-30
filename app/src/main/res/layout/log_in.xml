@@ -121,9 +121,7 @@
                 android:layout_marginTop="20dp"
                 android:text="@string/string_1"
                 android:textSize="16sp"
-                android:clickable="true"
-                android:textColor="@color/quite_red"
-                android:onClick="forgot_password"/>
+                android:textColor="@color/quite_red" />
 
             <LinearLayout
                 android:layout_width="match_parent"

@@ -10,7 +10,7 @@
     android:fitsSystemWindows="true"
     android:background="@android:color/black"
     app:layoutDescription="@xml/movie_detail_animation"
-    >
+    app:showPaths="true">
 
     <ImageView
         android:id="@+id/back_image_view"
@@ -116,7 +116,7 @@
         android:background="#FFFFFF"
         android:alpha="0"
         />
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:id="@+id/scroll_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -124,29 +124,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        >
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/parent_content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/content_text_view"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:paddingStart="18dp"
-                android:paddingEnd="18dp"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:layout_marginBottom="10dp"
-                android:gravity="center"
-                android:textColor="#eee"
-                android:text="@string/content_string"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
-        </android.support.constraint.ConstraintLayout>
-    </ScrollView>
+        />
+
+    <View
+        android:id="@+id/gradient_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@drawable/gradient_black_to_transparent"
+        app:layout_constraintTop_toBottomOf="@id/book_now_text_view"
+        android:alpha="1"/>
     <ImageView
         android:id="@+id/back_button"
         android:layout_width="65dp"

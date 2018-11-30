@@ -17,6 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.ldt.cinematicket.data.LoadStringFromUrlAsyncTask;
 import com.ldt.cinematicket.ui.main.MainActivity;
+import com.ldt.cinematicket.ui.main.book.BookingFragment;
 import com.ldt.cinematicket.ui.main.book.MovieDetail;
 
 public class NowShowingChildTab extends Fragment implements LoadStringFromUrlAsyncTask.OnLoadStringUrlListener {
@@ -25,6 +26,8 @@ public class NowShowingChildTab extends Fragment implements LoadStringFromUrlAsy
 
     @BindView(R.id.button)
     Button button;
+    @BindView(R.id.button2)
+    Button button2;
 
     public static NowShowingChildTab newInstance() {
         NowShowingChildTab fragment = new NowShowingChildTab();
@@ -46,7 +49,14 @@ public class NowShowingChildTab extends Fragment implements LoadStringFromUrlAsy
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity)NowShowingChildTab.this.getActivity()).getSupportFragmentManager().beginTransaction().add(R.id.container,MovieDetail.newInstance(null)).commit();
+                ((MainActivity)NowShowingChildTab.this.getActivity()).presentFragment(MovieDetail.newInstance(null));
+            }
+        });
+
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)NowShowingChildTab.this.getActivity()).presentFragment(BookingFragment.newInstance());
             }
         });
     }

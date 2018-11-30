@@ -40,12 +40,16 @@ dependencies {
     implementation 'com.android.support:design:28.0.0'
     implementation 'com.tuyenmonkey:mkloader:1.4.0'
 
-    // Fragment Back Stack
-    implementation 'com.ncapdevi:frag-nav:3.0.0'
+    // Animation
+    implementation 'com.daasuu:EasingInterpolator:1.0.0'
 
+    // Round Image View
    implementation 'com.makeramen:roundedimageview:2.3.0'
 
+    // Replacing findViewByID
     implementation 'com.jakewharton:butterknife:9.0.0-rc2'
     annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-rc2'
+
+    // Parsing Html to Json
     implementation 'org.jsoup:jsoup:1.10.1'
 }

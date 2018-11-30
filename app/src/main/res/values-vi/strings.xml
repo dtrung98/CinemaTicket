@@ -16,7 +16,7 @@
     <string name="string_2">Chưa có tài khoản?</string>
     <string name="string_3">Đăng ký</string>
 
-    <string name="user_signup">Người dùng đăng ký</string>
+    <string name="user_sign_up">Tạo tài khoản</string>
     <string name="admin_signup">Admin đăng ký</string>
     <string name="full_name">Họ tên đầy đủ</string>
     <string name="id_work">ID làm việc</string>

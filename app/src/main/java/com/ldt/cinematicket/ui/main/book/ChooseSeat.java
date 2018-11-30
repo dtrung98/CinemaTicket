@@ -12,14 +12,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ldt.cinematicket.R;
+import com.ldt.cinematicket.ui.main.MainActivity;
 import com.ldt.cinematicket.ui.widget.MotionLayout;
 import com.ldt.cinematicket.ui.widget.SeatPicker;
+import com.ldt.cinematicket.ui.widget.fragmentnavigationcontroller.SupportFragment;
 import com.tuyenmonkey.mkloader.MKLoader;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ChooseSeat extends Fragment implements MotionLayout.MotionListener {
+public class ChooseSeat extends SupportFragment implements MotionLayout.MotionListener {
 private static final String TAG ="ChooseSeat";
 private static void lg(String value) {
     Log.d(TAG,value);
@@ -31,7 +33,7 @@ private static void lg(String value) {
     }
     protected int[] local_pos = new int[2];
     protected View srcView;
-    public static ChooseSeat createInstance(View sourceView) {
+    public static ChooseSeat newInstance(View sourceView) {
 
         ChooseSeat chooseSeat = new ChooseSeat();
         sourceView.getLocationInWindow(chooseSeat.local_pos);
@@ -41,16 +43,13 @@ private static void lg(String value) {
         return chooseSeat;
     }
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container) {
         // Inflate the layout for this fragment
         root = (MotionLayout) inflater.inflate(R.layout.choose_seat, container, false);
         root.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .remove(ChooseSeat.this)
-                        .commitNow();
+                ((MainActivity)getActivity()).dismiss();
             }
         });
         seatPicker = root.findViewById(R.id.seat_picker);

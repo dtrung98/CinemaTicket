@@ -2,12 +2,11 @@ package com.ldt.cinematicket.ui.main.book;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -15,43 +14,43 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.ldt.cinematicket.ui.widget.fragmentnavigationcontroller.SupportFragment;
 import com.ldt.cinematicket.util.BitmapEditor;
 import com.ldt.cinematicket.R;
 
-public class BookingFragment extends Fragment implements View.OnClickListener {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class BookingFragment extends SupportFragment implements View.OnClickListener {
     private static final String TAG="BookingFragment";
 
 
     private View root;
     private ImageView imageView;
-private View showTimeTextView,time2,time3,time4;
-private ImageView menu_view;
+    private View showTimeTextView,time2,time3,time4;
+    private ImageView menu_view;
+
+    @BindView(R.id.card_detail) CardView card_detail;
     public static BookingFragment newInstance() {
         return new BookingFragment();
     }
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
         root= inflater.inflate(R.layout.booking, container, false);
+        ButterKnife.bind(this,root);
+
+        card_detail.setOnClickListener(this);
         toolbar = root.findViewById(R.id.toolbar);
         showTimeTextView = root.findViewById(R.id.show_time_textView);
         time2= root.findViewById(R.id.time_2);
         time3 = root.findViewById(R.id.time_3);
         time4 = root.findViewById(R.id.time_4);
         menu_view = root.findViewById(R.id.menu_view);
-        Thread x_thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        });
-        x_thread.start();
         menu_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,6 +88,7 @@ private ImageView menu_view;
 
        // newBitmap =BitmapEditor.GetRoundedBitmapWithBlurShadow(bitmap,5,5,5,5);
         imageView.setImageBitmap(new2);
+        setupToolbar();
         return root;
     }
     Toolbar toolbar;
@@ -100,19 +100,16 @@ private ImageView menu_view;
         ab.setDisplayShowTitleEnabled(false);
         ab.setDisplayHomeAsUpEnabled(true);
     }
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-         }
+
 
     public void ShowTimeViewOnClick(View view) {
     }
 
     @Override
     public void onClick(View view) {
-getActivity().getSupportFragmentManager().beginTransaction()
-        .replace(R.id.container, ChooseSeat.createInstance((TextView) view))
-        .addToBackStack(TAG)
-        .commitNow();
+        if(view.getId() == R.id.card_detail) {
+            getMainActivity().presentFragment(MovieDetail.newInstance(null));
+        } else
+        getMainActivity().presentFragment(ChooseSeat.newInstance(view));
     }
 }
