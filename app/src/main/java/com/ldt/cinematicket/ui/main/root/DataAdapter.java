@@ -26,7 +26,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.RecyclerViewHo
     @Override
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.items_movie_nowshowing_tab, parent, false);
+        View view = inflater.inflate(R.layout.item_movie_nowshowing_tab, parent, false);
 
         return new RecyclerViewHolder(view);
     }

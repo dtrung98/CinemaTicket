@@ -1,10 +1,61 @@
 package com.ldt.cinematicket.ui.main.root.trendingtab;
 
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.ldt.cinematicket.R;
+import com.ldt.cinematicket.data.DataFilm;
+import com.ldt.cinematicket.ui.main.root.DataAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class UpComingChildTab extends Fragment{
     public static UpComingChildTab newInstance() {
         UpComingChildTab fragment = new UpComingChildTab();
         return fragment;
+    }
+
+    @BindView(R.id.recycle_view)
+    RecyclerView mRecyclerView;
+
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.up_coming,container,false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        ButterKnife.bind(this,view);
+
+        initView();
+
+    }
+
+    public void initView(){
+        mRecyclerView.setHasFixedSize(true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false);
+        mRecyclerView.setLayoutManager(layoutManager);
+        List<DataFilm> arrayList = new ArrayList<>();
+        arrayList.add(new DataFilm(R.drawable.despicable_3,"Despicable 3","3D","IMAX","Kyle Balba","Steve Carell/Kisten Wiig",9.8));
+        arrayList.add(new DataFilm(R.drawable.a_silent_voice,"A Silent Voice","2D", "IMAX","Naoko Yamada","Miyu Irino/Saori Hayami",10.0));
+        arrayList.add(new DataFilm(R.drawable.iron_man_3,"Iron Man 3","2D","IMAX","Shane Black","Robert Downey Jr.",9.5));
+        arrayList.add(new DataFilm(R.drawable.zootopia,"Zootopia","3D","IMAX","Byron Howard","Ginnifer Goodwin/Jason",9.7));
+        arrayList.add(new DataFilm(R.drawable.despicable_3,"Despicable 3","3D","IMAX","Nguyễn Khương Trực","Nguyễn Khương Trực",9.8));
+        DataAdapter adapter = new DataAdapter(arrayList,getContext());
+        mRecyclerView.setAdapter(adapter);
     }
 }
