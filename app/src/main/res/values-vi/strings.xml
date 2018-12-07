@@ -36,4 +36,6 @@
     <string name="up_coming">Sắp chiếu</string>
     <string name="book">Đặt vé</string>
     <string name="book_now">Đặt ngay</string>
+    <string name="director_string">"Đạo diễn: "</string>
+    <string name="cast_string">"Diễn viên: "</string>
 </resources>
