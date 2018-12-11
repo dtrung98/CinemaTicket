@@ -70,7 +70,7 @@ public class NowShowingChildTab extends Fragment {
         arrayList.add(new DataFilm(R.drawable.iron_man_3,"Iron Man 3","2D","IMAX","Shane Black","Robert Downey Jr.",9.5));
         arrayList.add(new DataFilm(R.drawable.zootopia,"Zootopia","3D","IMAX","Byron Howard","Ginnifer Goodwin/Jason",9.7));
         arrayList.add(new DataFilm(R.drawable.despicable_3,"Despicable 3","3D","IMAX","Nguyễn Khương Trực","Nguyễn Khương Trực",9.8));
-        DataAdapter adapter = new DataAdapter(arrayList,getContext());
+        DataAdapter adapter = new DataAdapter(arrayList,getActivity());
         mRecyclerView.setAdapter(adapter);
     }
 }

@@ -9,24 +9,26 @@
     android:theme="@style/AppTheme.AppBarOverlay"
     android:fitsSystemWindows="true"
     android:background="@android:color/black"
-    app:layoutDescription="@xml/movie_detail_animation"
+
     app:showPaths="true">
 
     <ImageView
         android:id="@+id/back_image_view"
         android:layout_width="match_parent"
-        android:layout_height="132dp"
+        android:layout_height="0dp"
         android:adjustViewBounds="true"
         android:background="@color/colorPrimary"
         android:scaleType="centerCrop"
         android:src="@drawable/pha_dao_tga"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/gradient"
         android:alpha="0.4"/>
     <View
         android:id="@+id/gradient"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="@id/back_image_view"
-        app:layout_constraintBottom_toBottomOf="@id/back_image_view"
+        android:layout_height="132dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         android:background="@drawable/transparent_to_black_gradient"/>
     <ImageView
         android:id="@+id/avatar"

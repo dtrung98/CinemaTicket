@@ -13,19 +13,22 @@
     <ImageView
         android:id="@+id/back_image_view"
         android:layout_width="match_parent"
-        android:layout_height="370dp"
+        android:layout_height="0dp"
         android:adjustViewBounds="true"
         android:background="@color/colorPrimary"
         android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/gradient"
         android:src="@drawable/pha_dao_tga" />
 
     <View
         android:id="@+id/gradient"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="370dp"
         android:background="@drawable/transparent_to_black_gradient"
-        app:layout_constraintBottom_toBottomOf="@id/back_image_view"
-        app:layout_constraintTop_toTopOf="@id/back_image_view" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/avatar"

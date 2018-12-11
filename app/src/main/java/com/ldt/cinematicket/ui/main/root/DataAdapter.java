@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.ldt.cinematicket.R;
 import com.ldt.cinematicket.data.DataFilm;
+import com.ldt.cinematicket.ui.main.MainActivity;
+import com.ldt.cinematicket.ui.main.book.MovieDetail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +58,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.RecyclerViewHo
         TextView txtDirector;
         TextView txtActors;
         ImageView image;
+        View panel;
 
         public RecyclerViewHolder(View itemView) {
             super(itemView);
@@ -66,6 +69,13 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.RecyclerViewHo
             txtShowingType = (TextView) itemView.findViewById(R.id.txt_showingType);
             txtDirector = (TextView) itemView.findViewById(R.id.txt_director);
             txtActors = (TextView) itemView.findViewById(R.id.txt_actors);
+            panel = itemView.findViewById(R.id.panel);
+            panel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((MainActivity)context).presentFragment(MovieDetail.newInstance(data.get(getAdapterPosition())));
+                }
+            });
         }
     }
 }
