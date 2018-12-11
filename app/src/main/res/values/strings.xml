@@ -38,4 +38,6 @@
     <string name="book">Book</string>
     <string name="content_string" translatable="false">Trở lại sau 6 năm, anh chàng hậu đậu Ralph và người bạn đồng hành Vanelllope rời khỏi thế giới game thùng nhỏ bé để khám phá thế giới Internet rộng lớn. Mục đích duy nhất của cả hai là tìm cách cứu lấy trò chơi Sugar Rush của Vanellope khỏi nguy cơ bị huỷ hoại. Thế nhưng, Vanellope nhận ra đây mới chính là nơi dành cho cô, trong khi đó Ralph lại lo sợ liệu anh có đánh mất người bạn duy nhất của mình</string>
     <string name="book_now">Book now</string>
+    <string name="director_string">"Director: "</string>
+    <string name="cast_string">"Casts: "</string>
 </resources>
