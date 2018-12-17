@@ -47,7 +47,8 @@ public class MovieDetail extends SupportFragment {
         getMainActivity().presentFragment(WebViewFragment.newInstance(video_url));
     }
 
-    @OnClick(R.id.back_button) void dismiss() {
+    @OnClick(R.id.back_button)
+    void dismiss() {
         getMainActivity().dismiss();
     }
 

@@ -38,4 +38,7 @@
     <string name="book_now">Đặt ngay</string>
     <string name="director_string">"Đạo diễn: "</string>
     <string name="cast_string">"Diễn viên: "</string>
+    <string name="sign_in_or_sign_up_to_do_more_work">Đăng nhập để thực hiện nhiều hơn</string>
+    <string name="control_center_for_admin">Trung tâm quản lý (dành cho quản trị viên)</string>
+    <string name="dark_mode">Giao diện đen</string>
 </resources>

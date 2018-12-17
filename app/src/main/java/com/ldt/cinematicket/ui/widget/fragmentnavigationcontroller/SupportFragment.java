@@ -162,6 +162,7 @@ public abstract class SupportFragment extends Fragment {
         return animator;
     }
 
+
     public void onShowFragment() {}
     public void onHideFragment() {}
 

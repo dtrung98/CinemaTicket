@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 
 import com.ldt.cinematicket.R;
 import com.ldt.cinematicket.data.DataFilm;
-import com.ldt.cinematicket.ui.main.root.DataAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

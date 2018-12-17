@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +18,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import com.ldt.cinematicket.data.DataFilm;
-import com.ldt.cinematicket.ui.main.root.DataAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class NowShowingChildTab extends Fragment {
+    private static final String TAG ="NowShowingChildTab";
+
 
     @BindView(R.id.recycle_view)
     RecyclerView mRecyclerView;
@@ -40,6 +42,7 @@ public class NowShowingChildTab extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        Log.d(TAG, "onViewCreated: ");
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this,view);
 

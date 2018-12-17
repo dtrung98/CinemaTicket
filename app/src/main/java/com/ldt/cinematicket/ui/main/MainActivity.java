@@ -4,27 +4,41 @@ import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.ldt.cinematicket.R;
 import com.ldt.cinematicket.ui.main.book.ChooseSeat;
 import com.ldt.cinematicket.ui.main.root.BottomPagerAdapter;
+import com.ldt.cinematicket.ui.main.root.FireBaseActivity;
 import com.ldt.cinematicket.ui.widget.fragmentnavigationcontroller.SupportFragment;
 import com.ldt.cinematicket.ui.widget.fragmentnavigationcontroller.FragmentNavigationController;
 import com.ldt.cinematicket.ui.widget.fragmentnavigationcontroller.PresentStyle;
 
 import java.util.Random;
 
-public class MainActivity extends AppCompatActivity {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class MainActivity extends FireBaseActivity  {
 
 
-    private TextView mTextMessage;
+    @BindView(R.id.message) TextView mTextMessage;
+
     BottomPagerAdapter mBottomAdapter;
+
+    @BindView(R.id.bottom_view_pager)
     ViewPager mBottomPager;
+//    @BindView(R.id.bottom_view_pager)
+//    FrameLayout mContainer;
 
     FragmentNavigationController mNavigationController;
 
@@ -43,14 +57,17 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_trending:
                     mBottomPager.setCurrentItem(0);
+                  //  replaceFragment(mBottomAdapter.getItem(0),mBottomAdapter.getPageTitle(0).toString());
                     mTextMessage.setText(R.string.trending);
                     return true;
                 case R.id.navigation_cinema:
                     mBottomPager.setCurrentItem(1);
+                   // replaceFragment(mBottomAdapter.getItem(1),mBottomAdapter.getPageTitle(1).toString());
                     mTextMessage.setText(R.string.cinema);
                     return true;
                 case R.id.navigation_profile:
                     mBottomPager.setCurrentItem(2);
+                  //  replaceFragment(mBottomAdapter.getItem(2),mBottomAdapter.getPageTitle(2).toString());
                     mTextMessage.setText(R.string.my_profile);
                     return true;
             }
@@ -73,8 +90,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
-        mBottomPager = findViewById(R.id.bottom_view_pager);
-        mTextMessage = findViewById(R.id.message);
+        ButterKnife.bind(this);
+
         mBottomAdapter = new BottomPagerAdapter(this,getSupportFragmentManager());
         mBottomPager.setAdapter(mBottomAdapter);
 
@@ -115,5 +132,11 @@ public class MainActivity extends AppCompatActivity {
         if(isNavigationControllerInit()) {
             mNavigationController.dismissFragment(animated);
         }
+    }
+    private void replaceFragment(Fragment newFragment, String tag) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.bottom_view_pager, newFragment, tag)
+                .commit();
+
     }
 }

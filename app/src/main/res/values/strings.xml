@@ -40,4 +40,9 @@
     <string name="book_now">Book now</string>
     <string name="director_string">"Director: "</string>
     <string name="cast_string">"Casts: "</string>
+    <string name="sign_in_or_sign_up_to_do_more_work">Sign in or sign up to do more work</string>
+
+    <string name="control_center_for_admin">Control Center ( for admin )</string>
+    <string name="dark_mode">Dark Mode</string>
+
 </resources>

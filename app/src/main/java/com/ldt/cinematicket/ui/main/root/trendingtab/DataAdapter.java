@@ -1,4 +1,4 @@
-package com.ldt.cinematicket.ui.main.root;
+package com.ldt.cinematicket.ui.main.root.trendingtab;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

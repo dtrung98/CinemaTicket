@@ -8,34 +8,34 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.ldt.cinematicket.R;
 import com.ldt.cinematicket.ui.main.root.trendingtab.TrendingTab;
 
+import java.util.ArrayList;
+
 public class BottomPagerAdapter extends FragmentPagerAdapter {
-    private static int NUM_ITEMS = 3;
     private Context mContext;
 
     public BottomPagerAdapter(Context context,FragmentManager fragmentManager) {
         super(fragmentManager);
         mContext = context;
+        initData();
+    }
+
+    private ArrayList<Fragment> mData = new ArrayList<>();
+    private void initData() {
+        mData.add(TrendingTab.newInstance());
+        mData.add(CinemaTab.newInstance());
+        mData.add(ProfileTab.newInstance());
     }
 
     // Returns total number of pages
     @Override
     public int getCount() {
-        return NUM_ITEMS;
+        return mData.size();
     }
 
     // Returns the fragment to display for that page
     @Override
     public Fragment getItem(int position) {
-        switch (position) {
-            case 0: // Fragment # 0 - This will show Trending Fragment
-                return TrendingTab.newInstance();
-            case 1: // Fragment # 0 - This will show FirstFragment different title
-                return CinemaTab.newInstance();
-            case 2: // Fragment # 1 - This will show SecondFragment
-                return ProfileTab.newInstance();
-            default:
-                return null;
-        }
+        return mData.get(position);
     }
 
     // Returns the page title for the top indicator
@@ -47,6 +47,5 @@ public class BottomPagerAdapter extends FragmentPagerAdapter {
             case 2: return mContext.getResources().getString(R.string.my_profile);
             default:return null;
         }
-
 }
 }
