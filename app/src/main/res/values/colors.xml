@@ -24,5 +24,6 @@
     <color name="pink">#FF0042</color>
     <color name="pink_light_1">#ff0057</color>
     <color name="setting_label_color">#B8B8B8</color>
+    <color name="success_stroke_color">#A5DC86</color>
 
 </resources>

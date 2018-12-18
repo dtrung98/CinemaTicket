@@ -36,9 +36,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
         app:layout_constraintStart_toEndOf="@id/img"
         app:layout_constraintEnd_toStartOf="@id/txt_rating"
-        app:layout_constraintBottom_toTopOf="@id/txt_dimenType"
+        app:layout_constraintBottom_toTopOf="@id/scroll_view_type"
         android:layout_marginBottom="5dp"
         android:gravity="center_vertical"
         android:textColor="#FFF"
@@ -58,73 +60,66 @@
         android:textStyle="bold"
         android:textSize="18sp"
         android:textColor="#2979FF"/>
-    <TextView
-        android:id="@+id/txt_dimenType"
-        android:layout_width="wrap_content"
+    <HorizontalScrollView
+        android:id="@+id/scroll_view_type"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@id/cast_text"
+        app:layout_constraintEnd_toEndOf="@id/txt_name"
         app:layout_constraintBottom_toTopOf="@id/director_text"
-        android:background="#F44336"
         android:padding="3dp"
-        android:text="3D"
         android:textColor="#FFF"
         android:textSize="12sp"
-        android:layout_marginBottom="5dp" />
-    <TextView
-        android:id="@+id/txt_showingType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#2979FF"
-        android:padding="3dp"
-        android:text="IMAX"
-        android:textColor="#FFF"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        app:layout_goneMarginStart="0dp"
-        app:layout_goneMarginLeft="0dp"
-        app:layout_constraintStart_toEndOf="@id/txt_dimenType"
-        app:layout_constraintBottom_toBottomOf="@id/txt_dimenType"
-        android:textSize="12sp" />
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+        <LinearLayout
+            android:id="@+id/type_linear_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+           />
+    </HorizontalScrollView>
+
     <TextView
         android:id="@+id/director_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/director_string"
         android:layout_marginBottom="5dp"
-        android:textSize="13sp"
+        android:textSize="14sp"
         android:textColor="#607D8B"
-        app:layout_constraintStart_toStartOf="@id/cast_text"
-        app:layout_constraintBottom_toTopOf="@id/cast_text"/>
+        app:layout_constraintStart_toStartOf="@id/txt_name"
+        app:layout_constraintTop_toTopOf="@id/txt_director"/>
     <TextView
         android:id="@+id/txt_director"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="13sp"
+        android:textSize="14sp"
         android:textColor="#CFD8DC"
         app:layout_constraintStart_toEndOf="@id/director_text"
-        app:layout_constraintTop_toTopOf="@id/director_text"
-        app:layout_constraintBottom_toBottomOf="@id/director_text"/>
+        app:layout_constraintBottom_toTopOf="@id/cast_text"/>
     <TextView
-        android:layout_marginStart="10dp"
+
         android:id="@+id/cast_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/cast_string"
-        android:textSize="13sp"
+        android:textSize="14sp"
         android:textColor="#607D8B"
-        app:layout_constraintBottom_toBottomOf="@id/img"
-        app:layout_constraintStart_toEndOf="@id/img"
+        app:layout_constraintTop_toTopOf="@id/txt_actors"
+        app:layout_constraintStart_toStartOf="@id/txt_name"
         android:layout_marginBottom="5dp"
-        android:layout_marginLeft="10dp" />
+         />
     <TextView
         android:id="@+id/txt_actors"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textSize="13sp"
+        android:textSize="14sp"
         android:textColor="#CFD8DC"
         app:layout_constraintStart_toEndOf="@id/cast_text"
-        app:layout_constraintTop_toTopOf="@id/cast_text"
-        app:layout_constraintBottom_toBottomOf="@id/cast_text"
+        app:layout_constraintBottom_toBottomOf="@id/img"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"/>

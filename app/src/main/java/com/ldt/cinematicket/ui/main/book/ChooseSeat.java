@@ -54,7 +54,7 @@ private static void lg(String value) {
         });
         seatPicker = root.findViewById(R.id.seat_picker);
         loader = root.findViewById(R.id.mkloader);
-        bookNowButton = root.findViewById(R.id.book_now);
+        bookNowButton = root.findViewById(R.id.play_icon);
         return root;
     }
     private MKLoader loader;

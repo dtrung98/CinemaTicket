@@ -46,8 +46,12 @@ public abstract class SupportFragment extends Fragment {
         this.animatable = animatable;
     }
 
-    protected void setPresentStyle(PresentStyle presentStyle) {
+   protected void setPresentStyle(PresentStyle presentStyle) {
         this.presentStyle = presentStyle;
+    }
+
+    public int getPresentTransition() {
+        return MainActivity.PRESENT_STYLE_DEFAULT;
     }
 
     @Nullable

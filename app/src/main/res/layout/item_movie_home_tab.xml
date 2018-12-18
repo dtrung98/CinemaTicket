@@ -51,11 +51,11 @@
         android:maxLines="2"
         android:ellipsize="end"
         android:textColor="@android:color/white"
-        app:layout_constraintEnd_toStartOf="@id/book_now"
+        app:layout_constraintEnd_toStartOf="@id/play_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
     <TextView
-        android:id="@+id/book_now"
+        android:id="@+id/play_icon"
         android:text="@string/book"
         android:gravity="center"
         android:textColor="@android:color/white"

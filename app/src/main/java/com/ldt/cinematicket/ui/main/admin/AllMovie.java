@@ -3,27 +3,39 @@ package com.ldt.cinematicket.ui.main.admin;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.AppCompatEditText;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.ldt.cinematicket.R;
+import com.ldt.cinematicket.model.Movie;
+import com.ldt.cinematicket.ui.main.root.trendingtab.NowShowingAdapter;
+import com.ldt.cinematicket.ui.widget.fragmentnavigationcontroller.PresentStyle;
 import com.ldt.cinematicket.ui.widget.fragmentnavigationcontroller.SupportFragment;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AllMovie extends SupportFragment {
+public class AllMovie extends SupportFragment implements OnCompleteListener<QuerySnapshot>, OnFailureListener{
     private static final String TAG ="AllMovie";
 
     public static AllMovie newInstance() {
@@ -36,8 +48,18 @@ public class AllMovie extends SupportFragment {
     @BindView(R.id.title)
     TextView mTitle;
 
-    @BindView(R.id.edit_text)
-    AppCompatEditText mEditText;
+    @BindView(R.id.recycle_view)
+    RecyclerView mRecyclerView;
+
+    @BindView(R.id.swipeLayout)
+    SwipeRefreshLayout swipeLayout;
+
+    @BindView(R.id.textView)
+    TextView mErrorTextView;
+
+    NowShowingAdapter mAdapter;
+
+    FirebaseFirestore db;
 
     @OnClick(R.id.back_button)
     void back() {
@@ -55,25 +77,62 @@ public class AllMovie extends SupportFragment {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this,view);
         db = getMainActivity().db;
-        doSomething();
-    }
-    FirebaseFirestore db;
-    public void doSomething() {
-        db.collection("now_coming")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                mEditText.setText(document.getData().toString());
-                                Log.d(TAG, document.getId() + " => " + document.getData());
-                            }
-                        } else {
-                            Log.w(TAG, "Error getting documents.", task.getException());
-                        }
-                    }
-                });
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false);
+        mRecyclerView.setLayoutManager(layoutManager);
 
+        mAdapter = new NowShowingAdapter(getActivity());
+        mRecyclerView.setAdapter(mAdapter);
+        swipeLayout.setOnRefreshListener(this::refreshData);
+        refreshData();
     }
+
+    public void refreshData() {
+        swipeLayout.setRefreshing(true);
+        db.collection("movie")
+                .get()
+                .addOnCompleteListener(this)
+                .addOnFailureListener(this);
+
+}
+
+    @Override
+    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+        if(swipeLayout.isRefreshing())
+            swipeLayout.setRefreshing(false);
+
+        mErrorTextView.setVisibility(View.GONE);
+        mRecyclerView.setVisibility(View.VISIBLE);
+
+        if (task.isSuccessful()) {
+            QuerySnapshot querySnapshot = task.getResult();
+
+            List<Movie> mM = querySnapshot.toObjects(Movie.class);
+            Collections.sort(mM, new Comparator<Movie>() {
+                @Override
+                public int compare(Movie o1, Movie o2) {
+                    return o1.getId() - o2.getId();
+                }});
+            if(mAdapter!=null)
+            mAdapter.setData(mM);
+
+        } else
+            Log.w(TAG, "Error getting documents.", task.getException());
+    }
+
+    @Override
+    public void onFailure(@NonNull Exception e) {
+        Log.d(TAG, "onFailure");
+        if(swipeLayout.isRefreshing())
+            swipeLayout.setRefreshing(false);
+
+        mRecyclerView.setVisibility(View.GONE);
+        mErrorTextView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public int getPresentTransition() {
+        return PresentStyle.SLIDE_LEFT;
+    }
+
 }

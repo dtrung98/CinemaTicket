@@ -1,29 +1,21 @@
 package com.ldt.cinematicket.ui.main;
 
-import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.ldt.cinematicket.R;
-import com.ldt.cinematicket.ui.main.book.ChooseSeat;
 import com.ldt.cinematicket.ui.main.root.BottomPagerAdapter;
 import com.ldt.cinematicket.ui.main.root.FireBaseActivity;
 import com.ldt.cinematicket.ui.widget.fragmentnavigationcontroller.SupportFragment;
 import com.ldt.cinematicket.ui.widget.fragmentnavigationcontroller.FragmentNavigationController;
 import com.ldt.cinematicket.ui.widget.fragmentnavigationcontroller.PresentStyle;
-
-import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -100,9 +92,10 @@ public class MainActivity extends FireBaseActivity  {
 
         initBackStack(savedInstanceState);
     }
+    public static int PRESENT_STYLE_DEFAULT = PresentStyle.ACCORDION_LEFT;
     private void initBackStack(Bundle savedInstanceState) {
         mNavigationController = FragmentNavigationController.navigationController(getSupportFragmentManager(), R.id.container);
-        mNavigationController.setPresentStyle(PresentStyle.ACCORDION_LEFT);
+        mNavigationController.setPresentStyle(PRESENT_STYLE_DEFAULT);
         mNavigationController.setDuration(250);
         mNavigationController.setInterpolator(new AccelerateDecelerateInterpolator() );
         mNavigationController.presentFragment(new MainFragment());
@@ -114,13 +107,15 @@ public class MainActivity extends FireBaseActivity  {
         if(isNavigationControllerInit()) {
 //            Random r = new Random();
 //            mNavigationController.setPresentStyle(r.nextInt(39)+1); //exclude NONE present style
+            mNavigationController.setPresentStyle(fragment.getPresentTransition());
               mNavigationController.presentFragment(fragment, true);
 
         }
     }
     public void dismiss() {
-        if(isNavigationControllerInit())
+        if(isNavigationControllerInit()) {
             mNavigationController.dismissFragment();
+        }
     }
 
     public void presentFragment(SupportFragment fragment, boolean animated) {
