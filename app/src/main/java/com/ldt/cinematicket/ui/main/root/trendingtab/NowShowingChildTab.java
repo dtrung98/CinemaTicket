@@ -23,6 +23,7 @@ import com.ldt.cinematicket.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import com.ldt.cinematicket.data.DataFilm;
 import com.ldt.cinematicket.model.Movie;
@@ -33,7 +34,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class NowShowingChildTab extends Fragment implements OnCompleteListener<QuerySnapshot>, OnFailureListener {
+public class NowShowingChildTab extends Fragment implements OnCompleteListener<QuerySnapshot>, OnFailureListener { // implement 2 cai nay
     private static final String TAG ="NowShowingChildTab";
 
     @BindView(R.id.swipeLayout)
@@ -47,7 +48,7 @@ public class NowShowingChildTab extends Fragment implements OnCompleteListener<Q
 
     NowShowingAdapter mAdapter;
 
-    FirebaseFirestore db;
+    FirebaseFirestore db; // can cai nay nha, db = ((MainActivity)getActivity)
 
     public static NowShowingChildTab newInstance() {
         NowShowingChildTab fragment = new NowShowingChildTab();
@@ -76,15 +77,19 @@ public class NowShowingChildTab extends Fragment implements OnCompleteListener<Q
         refreshData();
     }
     public void refreshData() {
-        swipeLayout.setRefreshing(true);
+        swipeLayout.setRefreshing(true);// yes
         db.collection("now_showing")
                 .get()
                 .addOnCompleteListener(this)
                 .addOnFailureListener(this);
+        db.collection("cinema") // colection cinema trong firebase
+                .get() // tai ve
+                .addOnCompleteListener(this) // luc tai ve xong thi no vo ham onComplete
+                .addOnFailureListener(this); // neu tai ve loi thi no vo ham onFailure
 
     }
     @Override
-    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+    public void onComplete(@NonNull Task<QuerySnapshot> task) { // here
 
         if(swipeLayout.isRefreshing())
             swipeLayout.setRefreshing(false);
@@ -109,7 +114,7 @@ public class NowShowingChildTab extends Fragment implements OnCompleteListener<Q
     }
 
     @Override
-    public void onFailure(@NonNull Exception e) {
+    public void onFailure(@NonNull Exception e) { // here
         Log.d(TAG, "onFailure");
         if(swipeLayout.isRefreshing())
             swipeLayout.setRefreshing(false);

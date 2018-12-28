@@ -137,6 +137,8 @@ public class ChooseMovie extends SupportFragment implements ChooseMovieAdapter.C
                 .addOnCompleteListener(task -> ChooseMovie.this.onComplete(mCollectionString,task))
                 .addOnFailureListener(e -> ChooseMovie.this.onFailure(mCollectionString,e));
 
+
+
     }
 
     @OnClick(R.id.comfirm)
@@ -166,6 +168,12 @@ public class ChooseMovie extends SupportFragment implements ChooseMovieAdapter.C
                     refreshData();
                 });
         }
+
+
+        // vi du ong có collection cinema
+        // nếu chưa có nó sẽ tự tạo, ko sao
+
+
     }
 
 
@@ -208,7 +216,8 @@ public class ChooseMovie extends SupportFragment implements ChooseMovieAdapter.C
 
             // result of now_showing or upcoming collection
             QuerySnapshot querySnapshot = task.getResult();
-            List<Movie> mM = querySnapshot.toObjects(Movie.class);
+            List<Movie> mM = querySnapshot.toObjects(Movie.class); // convert = toObjects(Cinema.class), ong dc list<Cinema>
+            // lam nhieu lan de chac chan no convert dung
             Collections.sort(mM, (o1, o2) -> o1.getId() - o2.getId());
             Log.d(TAG, "onComplete: number selected = "+mM.size());
             if(mAdapter!=null)
