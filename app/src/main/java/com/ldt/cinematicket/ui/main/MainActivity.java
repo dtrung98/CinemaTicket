@@ -4,8 +4,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.TextView;
@@ -21,7 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends FireBaseActivity  {
-
+    private static final String TAG ="MainActivity";
 
     @BindView(R.id.message) TextView mTextMessage;
 
@@ -32,10 +34,11 @@ public class MainActivity extends FireBaseActivity  {
 //    @BindView(R.id.bottom_view_pager)
 //    FrameLayout mContainer;
 
-    FragmentNavigationController mNavigationController;
+   FragmentNavigationController mNavigationController;
 
     @Override
     public void onBackPressed() {
+        if(mNavigationController.getTopFragment().isReadyToDismiss())
         if(!(isNavigationControllerInit() && mNavigationController.dismissFragment(true)))
             super.onBackPressed();
     }
@@ -93,12 +96,24 @@ public class MainActivity extends FireBaseActivity  {
         initBackStack(savedInstanceState);
     }
     public static int PRESENT_STYLE_DEFAULT = PresentStyle.ACCORDION_LEFT;
+
+
     private void initBackStack(Bundle savedInstanceState) {
-        mNavigationController = FragmentNavigationController.navigationController(getSupportFragmentManager(), R.id.container);
+        FragmentManager fm = getSupportFragmentManager();
+        mNavigationController = FragmentNavigationController.navigationController(fm, R.id.container);
         mNavigationController.setPresentStyle(PRESENT_STYLE_DEFAULT);
         mNavigationController.setDuration(250);
-        mNavigationController.setInterpolator(new AccelerateDecelerateInterpolator() );
-        mNavigationController.presentFragment(new MainFragment());
+        mNavigationController.setInterpolator(new AccelerateDecelerateInterpolator());
+      //if(savedInstanceState==null) {
+
+          mNavigationController.presentFragment(new MainFragment());
+
+     // } else {
+
+//          mNavigationController = (FragmentNavigationController) fm.getFragment(savedInstanceState,"navigation-controller");
+//          if(mNavigationController==null) Log.d(TAG, "initBackStack: found Navigation Controller");
+//          else Log.d(TAG, "initBackStack: unable to get Navigation Controller");
+     // }
     }
     private boolean isNavigationControllerInit() {
         return null!= mNavigationController;

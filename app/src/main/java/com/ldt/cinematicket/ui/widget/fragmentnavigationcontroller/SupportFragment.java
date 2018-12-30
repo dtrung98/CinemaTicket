@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,10 +54,13 @@ public abstract class SupportFragment extends Fragment {
     public int getPresentTransition() {
         return MainActivity.PRESENT_STYLE_DEFAULT;
     }
-
+    public boolean isReadyToDismiss(){
+        return true;
+    }
     @Nullable
     @Override
     final public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.d(getClass().getName(), "onCreateView");
         View v = onCreateView(inflater, container);
         if(v == null) return v;
         contentView = v;

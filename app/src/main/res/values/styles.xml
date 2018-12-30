@@ -11,6 +11,7 @@
         <item name="windowActionBar">false</item>
         <item name="android:windowBackground">@android:color/black</item>
         <item name="android:windowFullscreen">false</item>
+
         <!--item name="android:fontFamily">@font/hn</item-->
         <!-- Status bar stuff. -->
     </style>

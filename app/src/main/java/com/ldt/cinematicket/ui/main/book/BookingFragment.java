@@ -17,6 +17,7 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 
+import com.ldt.cinematicket.ui.widget.fragmentnavigationcontroller.PresentStyle;
 import com.ldt.cinematicket.ui.widget.fragmentnavigationcontroller.SupportFragment;
 import com.ldt.cinematicket.util.BitmapEditor;
 import com.ldt.cinematicket.R;
@@ -103,6 +104,7 @@ public class BookingFragment extends SupportFragment implements View.OnClickList
 
 
     public void ShowTimeViewOnClick(View view) {
+
     }
 
     @Override
@@ -111,5 +113,10 @@ public class BookingFragment extends SupportFragment implements View.OnClickList
             getMainActivity().presentFragment(MovieDetail.newInstance(null));
         } else
         getMainActivity().presentFragment(ChooseSeat.newInstance(view));
+    }
+
+    @Override
+    public int getPresentTransition() {
+        return PresentStyle.SLIDE_LEFT;
     }
 }

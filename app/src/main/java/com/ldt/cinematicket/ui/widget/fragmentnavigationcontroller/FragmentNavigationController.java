@@ -48,6 +48,10 @@ public class FragmentNavigationController extends SupportFragment {
                     .commit();
         }
     }
+    public SupportFragment getTopFragment() {
+        if(fragmentStack.size()!=0)return  fragmentStack.lastElement();
+        return null;
+    }
 
     @Nullable
     @Override

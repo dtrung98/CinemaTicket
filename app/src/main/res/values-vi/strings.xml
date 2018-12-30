@@ -41,4 +41,14 @@
     <string name="sign_in_or_sign_up_to_do_more_work">Đăng nhập để thực hiện nhiều hơn</string>
     <string name="control_center_for_admin">Trung tâm quản lý (dành cho quản trị viên)</string>
     <string name="dark_mode">Giao diện đen</string>
+    <string name="choose_movies_for_now_showing">Chọn phim đang chiếu</string>
+    <string name="choose_movies_for_up_coming">Chọn phim sắp chiếu</string>
+    <string name="loading">Đang gửi...</string>
+    <string name="load_live">Cập nhật dữ liệu...</string>
+    <string name="save_change">LƯU THAY ĐỔI</string>
+    <string name="add_new_movie">Thêm phim mới</string>
+    <string name="all_movies">Tất cả phim</string>
+    <string name="alert_leaving">Dữ liệu bạn vừa nhập sẽ bị xóa sau khi rời đi !</string>
+    <string name="ok_i_know">Ừ, tôi biết mà</string>
+    <string name="auto_id">" ( ID tự động )"</string>
 </resources>

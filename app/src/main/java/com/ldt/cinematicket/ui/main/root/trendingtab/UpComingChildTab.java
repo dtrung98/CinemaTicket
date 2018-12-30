@@ -19,13 +19,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.ldt.cinematicket.R;
-import com.ldt.cinematicket.data.DataFilm;
 import com.ldt.cinematicket.model.Movie;
 import com.ldt.cinematicket.ui.main.MainActivity;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import butterknife.BindView;
@@ -35,7 +32,7 @@ public class UpComingChildTab extends Fragment implements OnCompleteListener<Que
     private static final String TAG ="UpComingChildTab";
 
 
-    @BindView(R.id.swipeLayout)
+    @BindView(R.id.swipe_layout)
     SwipeRefreshLayout swipeLayout;
 
     @BindView(R.id.textView)
@@ -65,7 +62,7 @@ public class UpComingChildTab extends Fragment implements OnCompleteListener<Que
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
 
-        db = ((MainActivity) getActivity()).db;
+        db = ((MainActivity) getActivity()).mDb;
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(layoutManager);
 

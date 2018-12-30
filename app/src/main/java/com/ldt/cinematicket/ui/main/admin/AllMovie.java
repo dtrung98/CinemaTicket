@@ -12,11 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -26,7 +24,6 @@ import com.ldt.cinematicket.ui.main.root.trendingtab.NowShowingAdapter;
 import com.ldt.cinematicket.ui.widget.fragmentnavigationcontroller.PresentStyle;
 import com.ldt.cinematicket.ui.widget.fragmentnavigationcontroller.SupportFragment;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -51,15 +48,15 @@ public class AllMovie extends SupportFragment implements OnCompleteListener<Quer
     @BindView(R.id.recycle_view)
     RecyclerView mRecyclerView;
 
-    @BindView(R.id.swipeLayout)
-    SwipeRefreshLayout swipeLayout;
+    @BindView(R.id.swipe_layout)
+    SwipeRefreshLayout mSwipeLayout;
 
     @BindView(R.id.textView)
     TextView mErrorTextView;
 
     NowShowingAdapter mAdapter;
 
-    FirebaseFirestore db;
+    FirebaseFirestore mDb;
 
     @OnClick(R.id.back_button)
     void back() {
@@ -76,30 +73,29 @@ public class AllMovie extends SupportFragment implements OnCompleteListener<Quer
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this,view);
-        db = getMainActivity().db;
+        mDb = getMainActivity().mDb;
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false);
         mRecyclerView.setLayoutManager(layoutManager);
 
         mAdapter = new NowShowingAdapter(getActivity());
         mRecyclerView.setAdapter(mAdapter);
-        swipeLayout.setOnRefreshListener(this::refreshData);
+        mSwipeLayout.setOnRefreshListener(this::refreshData);
         refreshData();
     }
 
     public void refreshData() {
-        swipeLayout.setRefreshing(true);
-        db.collection("movie")
+        mSwipeLayout.setRefreshing(true);
+        mDb.collection("movie")
                 .get()
                 .addOnCompleteListener(this)
                 .addOnFailureListener(this);
-
-}
+    }
 
     @Override
     public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
-        if(swipeLayout.isRefreshing())
-            swipeLayout.setRefreshing(false);
+        if(mSwipeLayout.isRefreshing())
+            mSwipeLayout.setRefreshing(false);
 
         mErrorTextView.setVisibility(View.GONE);
         mRecyclerView.setVisibility(View.VISIBLE);
@@ -108,11 +104,7 @@ public class AllMovie extends SupportFragment implements OnCompleteListener<Quer
             QuerySnapshot querySnapshot = task.getResult();
 
             List<Movie> mM = querySnapshot.toObjects(Movie.class);
-            Collections.sort(mM, new Comparator<Movie>() {
-                @Override
-                public int compare(Movie o1, Movie o2) {
-                    return o1.getId() - o2.getId();
-                }});
+            Collections.sort(mM, (o1, o2) -> o1.getId() - o2.getId());
             if(mAdapter!=null)
             mAdapter.setData(mM);
 
@@ -123,8 +115,8 @@ public class AllMovie extends SupportFragment implements OnCompleteListener<Quer
     @Override
     public void onFailure(@NonNull Exception e) {
         Log.d(TAG, "onFailure");
-        if(swipeLayout.isRefreshing())
-            swipeLayout.setRefreshing(false);
+        if(mSwipeLayout.isRefreshing())
+            mSwipeLayout.setRefreshing(false);
 
         mRecyclerView.setVisibility(View.GONE);
         mErrorTextView.setVisibility(View.VISIBLE);

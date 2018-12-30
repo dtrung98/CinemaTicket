@@ -10,7 +10,7 @@
     <WebView
         android:id="@+id/web"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="@dimen/web_size_portrait"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:background="@android:color/black"

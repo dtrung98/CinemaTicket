@@ -837,7 +837,7 @@ public final class BitmapEditor {
         return bitmapOriginal;
     }
     public static Bitmap BlurBitmapWithRenderScript(Context context, Bitmap bitmap, float radius){
-        //Let's create an empty bitmap with the same size of the bitmap we want to blur
+        //Let's create an empty bitmap with the same mID of the bitmap we want to blur
         Bitmap outBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
 
         //Instantiate A new Renderscript

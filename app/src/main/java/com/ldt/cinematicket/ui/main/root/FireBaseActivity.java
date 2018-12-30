@@ -14,6 +14,6 @@ public class FireBaseActivity extends AppCompatActivity {
     private static final String TAG ="FireBaseActivity";
 
     // Access a Cloud Firestore instance from your Activity
-    public FirebaseFirestore db = FirebaseFirestore.getInstance();
+    public FirebaseFirestore mDb = FirebaseFirestore.getInstance();
 
 }

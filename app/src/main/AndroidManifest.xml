@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.inout.InOutActivity">
+        <activity android:name=".ui.inout.InOutActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"> <!-- for saving state when activity was rotated -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -23,7 +24,8 @@
         </activity>
         <activity
             android:name=".ui.main.MainActivity"
-            android:label="@string/title_activity_home" />
+            android:label="@string/title_activity_home"
+            android:configChanges="keyboardHidden|orientation|screenSize"/> <!-- for saving state when activity was rotated -->/
     </application>
 
 </manifest>

@@ -15,8 +15,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -47,7 +45,7 @@ public class ChooseMovie extends SupportFragment implements ChooseMovieAdapter.C
     @BindView(R.id.recycle_view)
     RecyclerView mRecyclerView;
 
-    @BindView(R.id.swipeLayout)
+    @BindView(R.id.swipe_layout)
     SwipeRefreshLayout swipeLayout;
 
     @BindView(R.id.textView)
@@ -108,7 +106,7 @@ public class ChooseMovie extends SupportFragment implements ChooseMovieAdapter.C
         step = 0;
         if(mMode==MODE.UP_COMING) mTitle.setText(R.string.choose_movies_for_up_coming);
 
-        db = getMainActivity().db;
+        db = getMainActivity().mDb;
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false);
         mRecyclerView.setLayoutManager(layoutManager);
 

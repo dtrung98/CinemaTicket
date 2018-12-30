@@ -3,6 +3,7 @@ package com.ldt.cinematicket.ui.main.admin;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,9 +47,14 @@ public class DashBoard extends SupportFragment {
         getMainActivity().presentFragment(ChooseMovie.newInstance(ChooseMovie.MODE.UP_COMING));
     }
 
+    @OnClick(R.id.add_new_movie_panel)
+    void goToAddNewMovie() {
+        getMainActivity().presentFragment(AddNewMovie.newInstance());
+    }
     @Nullable
     @Override
     protected View onCreateView(LayoutInflater inflater, ViewGroup container) {
+
         return inflater.inflate(R.layout.admin_dash_board,container,false);
     }
 

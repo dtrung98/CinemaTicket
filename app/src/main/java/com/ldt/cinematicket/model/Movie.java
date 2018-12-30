@@ -1,5 +1,7 @@
 package com.ldt.cinematicket.model;
 
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
@@ -134,5 +136,25 @@ public class Movie {
 
     public void setType(ArrayList<String> type) {
         this.type = type;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "cast='" + cast + '\'' +
+                ", description='" + description + '\'' +
+                ", director='" + director + '\'' +
+                ", duration=" + duration +
+                ", genre='" + genre + '\'' +
+                ", id=" + id +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", openingDay='" + openingDay + '\'' +
+                ", reviews=" + reviews +
+                ", status='" + status + '\'' +
+                ", title='" + title + '\'' +
+                ", trailerYoutube='" + trailerYoutube + '\'' +
+                ", type=" + type +
+                '}';
     }
 }
