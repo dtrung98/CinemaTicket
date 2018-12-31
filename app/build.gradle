@@ -58,6 +58,7 @@ dependencies {
     // Google FireBase
     implementation 'com.google.firebase:firebase-core:16.0.6'
     implementation 'com.google.firebase:firebase-firestore:17.1.4'
+    implementation 'com.google.firebase:firebase-auth:16.1.0'
 
     // Nested Coordinator Layout
     implementation 'com.otaliastudios:nestedscrollcoordinatorlayout:1.0.3'
@@ -68,6 +69,12 @@ dependencies {
 
     // GSON
     implementation 'com.google.code.gson:gson:2.8.5'
+
+    //Facebook SDK
+    implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
+
+    //Google
+    implementation 'com.google.android.gms:play-services-auth:16.0.1'
 }
 
 apply plugin: 'com.google.gms.google-services'
