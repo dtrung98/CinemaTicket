@@ -104,7 +104,7 @@
             android:layout_marginRight="30dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/rounded_corner_without_border_dark"
-            android:hint="@string/confirm_password"
+            android:hint="@string/retype_password"
             android:inputType="textPassword"
             android:maxLines="1"
             android:paddingLeft="15dp"
