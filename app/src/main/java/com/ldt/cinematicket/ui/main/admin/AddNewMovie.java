@@ -144,6 +144,55 @@ public class AddNewMovie extends SupportFragment implements RequestListener<Draw
         if(mDone[3])  mCheckYoutubeLink.setVisibility(View.VISIBLE); else mCheckYoutubeLink.setVisibility(View.GONE);
         checkoutDone();
     }
+    @OnTextChanged(R.id.id)
+    void onIDChanged(CharSequence s, int start, int before, int count) {
+        String str = s.toString();
+        str = str.replace(getString(R.string.auto_id),"").replaceAll("\\D+","");
+        if(!str.isEmpty()) {
+                mID = Integer.parseInt(str);
+                mFoundPos = findIdInData((int) mID);
+                if(mFoundPos!=-1) {
+                    mIDDetail.setVisibility(View.VISIBLE);
+                    mAutoFill.setVisibility(View.VISIBLE);
+                } else {
+                    mIDDetail.setVisibility(View.GONE);
+                    mAutoFill.setVisibility(View.GONE);
+                }
+        } else {
+            mIDDetail.setVisibility(View.GONE);
+            mAutoFill.setVisibility(View.GONE);
+        }
+    }
+    @BindView(R.id.id_detail) TextView mIDDetail;
+    @BindView(R.id.auto_fill) TextView mAutoFill;
+    int mFoundPos = -1;
+    int findIdInData(int id) {
+        for (int i = 0; i < mData.size(); i++) {
+            if(mData.get(i).getId()==id)
+                return i;
+        }
+        return -1;
+    }
+
+    @OnClick(R.id.auto_fill)
+    void autoFillForm() {
+        Log.d(TAG, "autoFillForm: "+mFoundPos);
+    if(mFoundPos!=-1&&mFoundPos<mData.size()) {
+        Movie m = mData.get(mFoundPos);
+
+        mImageUrlEditText.setText(m.getImageUrl());
+        mIDEditText.setText(String.format("%d", m.getId()));
+        mName.setText(m.getTitle());
+        mCast.setText(m.getCast());
+        mDirector.setText(m.getDirector());
+        mDescription.setText(m.getDescription());
+        mGenre.setText(m.getGenre());
+        mType.setText(android.text.TextUtils.join(",", m.getType()));
+        mDuration.setText(String.format("%d", m.getDuration()));
+        mOpeningDay.setText(m.getOpeningDay());
+        mTrailerYoutube.setText(m.getTrailerYoutube());
+    }
+    }
     boolean mOk =false;
     private void checkoutDone() {
         for (int i = 0; i< mDone.length; i++) {
@@ -204,7 +253,7 @@ public class AddNewMovie extends SupportFragment implements RequestListener<Draw
         sendData(m);
     }
     void sendData(Movie movie){
-        mDb.collection("movie").document(movie.getId()+"").set(movie).addOnSuccessListener(aVoid -> {
+        mDb.collection("movie").document((movie.getId()-1)+"").set(movie).addOnSuccessListener(aVoid -> {
             setOnSuccess();
 
         }).addOnFailureListener(e -> {
@@ -297,10 +346,10 @@ public class AddNewMovie extends SupportFragment implements RequestListener<Draw
         ButterKnife.bind(this,view);
         mDb = getMainActivity().mDb;
         ExpandOrCollapseOptionPanel();
-        disableIdField();
+        //disableIdField();
         mSwipeLayout.setOnRefreshListener(this::refreshData);
         refreshData(false);
-        autoFill();
+       // autoFill();
     }
     private void disableIdField() {
         mIDEditText.setFocusable(false);
@@ -375,12 +424,14 @@ public class AddNewMovie extends SupportFragment implements RequestListener<Draw
 
             List<Movie> mM = querySnapshot.toObjects(Movie.class);
             Collections.sort(mM, (o1, o2) -> (int) (o1.getId() - o2.getId()));
+            mData.clear();
+            mData.addAll(mM);
            createNewID(mM);
 
         } else
             Log.w(TAG, "Error getting documents.", task.getException());
     }
-
+    ArrayList<Movie> mData = new ArrayList<>();
     private void createNewID(List<Movie> data) {
         Log.d(TAG, "createNewID: size = "+data.size());
         for (int i = 0; i < data.size(); i++) {
@@ -394,6 +445,7 @@ public class AddNewMovie extends SupportFragment implements RequestListener<Draw
             }
         }
         mIDEditText.setText(String.format("%d %s", mID, getString(R.string.auto_id)));
+      //  enableIDField();
     }
     @SuppressLint("SetTextI18n")
     void autoFill() {

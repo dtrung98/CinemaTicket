@@ -82,14 +82,28 @@ public class ChooseMovie extends SupportFragment implements ChooseMovieAdapter.C
     }
 
     public enum MODE {
+        FEATURE,
         NOW_SHOWING,
         UP_COMING
     }
     private MODE mMode;
+    int mTitleStringID;
     public static ChooseMovie newInstance(MODE mode) {
         ChooseMovie cm = new ChooseMovie();
         cm.mMode = mode;
-        cm.mCollectionString = (mode==MODE.NOW_SHOWING) ?"now_showing" :"up_coming";
+        switch (mode) {
+            case FEATURE:
+                cm.mCollectionString = "feature_movie";
+                cm.mTitleStringID = R.string.choose_feature_movies;
+                break;
+            case NOW_SHOWING:
+                cm.mCollectionString = "now_showing";
+                cm.mTitleStringID = R.string.choose_now_showing_movies;
+            break;
+            case UP_COMING:cm.mCollectionString ="up_coming";
+                cm.mTitleStringID = R.string.choose_up_coming_movies;
+            break;
+        }
         return cm;
     }
 
@@ -104,7 +118,8 @@ public class ChooseMovie extends SupportFragment implements ChooseMovieAdapter.C
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this,view);
         step = 0;
-        if(mMode==MODE.UP_COMING) mTitle.setText(R.string.choose_movies_for_up_coming);
+
+       mTitle.setText(mTitleStringID);
 
         db = getMainActivity().mDb;
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false);

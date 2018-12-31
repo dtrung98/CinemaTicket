@@ -10,11 +10,13 @@
     android:focusable="true">
     <ImageView
         android:id="@+id/back_button"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:paddingTop="23dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:paddingTop="14dp"
+        android:layout_margin="10dp"
+        android:paddingBottom="14dp"
         android:tint="@color/setting_label_color"
-        android:paddingBottom="23dp"
+       android:background="@drawable/round_support_touch"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_close_black_24dp" />
@@ -31,19 +33,22 @@
         android:text="@string/add_new_movie"
         android:maxLines="1"
         android:ellipsize="end"
+        android:background="@drawable/round_support_touch"
         android:gravity="center"
         android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@color/setting_label_color"/>
     <ImageView
         android:id="@+id/done_button"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:paddingTop="23dp"
-        android:paddingBottom="23dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:paddingTop="14dp"
+        android:layout_margin="10dp"
+        android:paddingBottom="14dp"
         android:tint="@color/setting_label_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/round_support_touch"
         app:srcCompat="@drawable/ic_done_black_24dp" />
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_layout"
@@ -133,10 +138,10 @@
                 android:paddingBottom="15dp"
                 android:paddingTop="15dp"
                 android:paddingEnd="15dp"
-                app:layout_constraintTop_toBottomOf="@id/image_url"
+                app:layout_constraintTop_toBottomOf="@id/id_detail"
                 app:layout_constraintStart_toStartOf="@id/image_url"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:background="@drawable/line_top"
+                app:layout_constraintEnd_toStartOf="@id/auto_fill"
+                android:background="@android:color/transparent"
                 android:textColor="#CCC"
                 android:textSize="15sp"
                 android:maxLines="1"
@@ -146,6 +151,46 @@
                 android:paddingRight="15dp"
                 android:textStyle="italic"
                 android:inputType="none"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                app:layout_constraintStart_toStartOf="@id/id"
+                app:layout_constraintEnd_toEndOf="@id/auto_fill"
+                app:layout_constraintTop_toBottomOf="@id/image_url"
+                android:background="@drawable/line_top"/>
+            <TextView
+                android:id="@+id/id_detail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingTop="6dp"
+                app:layout_constraintStart_toStartOf="@id/image_url"
+                app:layout_constraintEnd_toStartOf="@id/auto_fill"
+                app:layout_constraintTop_toBottomOf="@id/image_url"
+                android:textSize="11sp"
+                android:selectAllOnFocus="false"
+                android:textColor="#444"
+
+                android:visibility="gone"
+                android:text="@string/exist_movie_alert"
+                />
+            <TextView
+                android:id="@+id/auto_fill"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toTopOf="@id/id"
+                app:layout_constraintBottom_toBottomOf="@id/id"
+                android:text="Auto Fill Form"
+                android:gravity="center"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:visibility="gone"
+                android:textColor="@color/FlatOrange"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_margin="5dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@drawable/round_support_touch"
+                />
             <EditText
                 android:id="@+id/name"
                 android:layout_width="0dp"
@@ -381,6 +426,7 @@
                 android:textColor="@color/FlatOrange"
                 app:layout_constraintStart_toEndOf="@id/trailer_youtube"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:background="@drawable/round_support_touch"
                 android:visibility="gone"/>
             <TextView
                 android:id="@+id/youtube_detail"

@@ -42,6 +42,11 @@ public class DashBoard extends SupportFragment {
         getMainActivity().presentFragment(ChooseMovie.newInstance(ChooseMovie.MODE.NOW_SHOWING));
     }
 
+    @OnClick({R.id.choose_feature_movie,R.id.next_feature_movie})
+    void goToChooseFeatureMovies() {
+        getMainActivity().presentFragment(ChooseMovie.newInstance(ChooseMovie.MODE.FEATURE));
+    }
+
     @OnClick({R.id.choose_upcoming_movie,R.id.next_choose_upcoming})
     void goToChooseMoviesForUpComing() {
         getMainActivity().presentFragment(ChooseMovie.newInstance(ChooseMovie.MODE.UP_COMING));
