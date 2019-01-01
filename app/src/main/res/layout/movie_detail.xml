@@ -82,20 +82,20 @@
         android:text="March 2017"
         android:textColor="#ddd"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@id/play_icon"
+        app:layout_constraintBottom_toTopOf="@id/book"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/title" />
     <View
         android:id="@+id/play_panel"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="@id/play_icon"
+        app:layout_constraintStart_toStartOf="@id/book"
         app:layout_constraintEnd_toEndOf="@id/play_label"
         app:layout_constraintTop_toTopOf="@id/play_label"
         app:layout_constraintBottom_toBottomOf="@id/play_label"
         />
     <ImageView
-        android:id="@+id/play_icon"
+        android:id="@+id/book"
         android:layout_width="40dp"
         android:layout_height="50dp"
         app:layout_constraintEnd_toStartOf="@id/play_label"
@@ -120,8 +120,8 @@
         android:textColor="#EEFF0B19"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="@id/play_icon"
-        app:layout_constraintStart_toEndOf="@id/play_icon"
+        app:layout_constraintTop_toTopOf="@id/book"
+        app:layout_constraintStart_toEndOf="@id/book"
 
         />
     <android.support.design.widget.FloatingActionButton

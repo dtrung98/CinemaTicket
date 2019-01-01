@@ -79,7 +79,7 @@ public class BookingFragment extends SupportFragment implements View.OnClickList
         time2.setOnClickListener(this);
         time3.setOnClickListener(this);
         time4.setOnClickListener(this);
-        imageView = root.findViewById(R.id.imageView3);
+        imageView = root.findViewById(R.id.image);
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.madagasca);
 
         Bitmap new2 = BitmapEditor.getMyCustomRoundedBitmap(bitmap, (int)bitmap.getWidth()/16);

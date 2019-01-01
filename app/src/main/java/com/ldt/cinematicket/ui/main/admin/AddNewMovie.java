@@ -81,6 +81,15 @@ public class AddNewMovie extends SupportFragment implements RequestListener<Draw
     @BindView(R.id.done_button) ImageView mDoneButton;
     @BindView(R.id.check_youtube_link) View mCheckYoutubeLink;
 
+    @BindView(R.id.opening_day) EditText mOpeningDay;
+    @BindView(R.id.cast) EditText mCast;
+    @BindView(R.id.director) EditText mDirector;
+    @BindView(R.id.description) EditText mDescription;
+    @BindView(R.id.genre) EditText mGenre;
+    @BindView(R.id.type) EditText mType;
+    @BindView(R.id.duration) EditText mDuration;
+    @BindView(R.id.rate) EditText mRate;
+
     @OnClick(R.id.back_button)
     void back() {
         BottomSheetDialog dialog = new BottomSheetDialog(getActivity());
@@ -191,6 +200,7 @@ public class AddNewMovie extends SupportFragment implements RequestListener<Draw
         mDuration.setText(String.format("%d", m.getDuration()));
         mOpeningDay.setText(m.getOpeningDay());
         mTrailerYoutube.setText(m.getTrailerYoutube());
+        mRate.setText(String.format("%s", m.getRate()));
     }
     }
     boolean mOk =false;
@@ -206,13 +216,6 @@ public class AddNewMovie extends SupportFragment implements RequestListener<Draw
         mOk = true;
         mDoneButton.setColorFilter(getResources().getColor(R.color.FlatBlue));
     }
-    @BindView(R.id.opening_day) EditText mOpeningDay;
-    @BindView(R.id.cast) EditText mCast;
-    @BindView(R.id.director) EditText mDirector;
-    @BindView(R.id.description) EditText mDescription;
-    @BindView(R.id.genre) EditText mGenre;
-    @BindView(R.id.type) EditText mType;
-    @BindView(R.id.duration) EditText mDuration;
 
     @OnClick(R.id.done_button)
     void onClickDoneButton() {
@@ -243,6 +246,16 @@ public class AddNewMovie extends SupportFragment implements RequestListener<Draw
         }
 
         m.setDuration(durInt);
+
+        String rateStr = mRate.getText().toString();
+        double rate = 0;
+        if(!rateStr.isEmpty()) {
+            try {
+                rate = Double.parseDouble(rateStr);
+            } catch (NumberFormatException ignored) { }
+        }
+        m.setRate(rate);
+
         Log.d(TAG, m.toString());
          mSendingDialog = new BottomSheetDialog(getActivity());
 

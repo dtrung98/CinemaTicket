@@ -33,6 +33,9 @@ public class Movie {
     private String trailerYoutube;
     @SerializedName("type")
     private ArrayList<String> type;
+    @SerializedName("rate")
+    private double rate;
+
 
     public String getCast() {
         return cast;
@@ -156,5 +159,13 @@ public class Movie {
                 ", trailerYoutube='" + trailerYoutube + '\'' +
                 ", type=" + type +
                 '}';
+    }
+
+    public double getRate() {
+        return rate;
+    }
+
+    public void setRate(double rate) {
+        this.rate = rate;
     }
 }

@@ -57,7 +57,7 @@
             android:padding="12dp">
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/image"
                 android:layout_width="117dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -69,7 +69,7 @@
                />
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
@@ -83,7 +83,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/imageView5"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/imageView3"
+                app:layout_constraintStart_toEndOf="@+id/image"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -98,8 +98,8 @@
                 android:text="Cartoon / Adventure"
                 android:textColor="@color/text_not_focus"
                 app:layout_constraintEnd_toStartOf="@+id/imageView5"
-                app:layout_constraintStart_toEndOf="@+id/imageView3"
-                app:layout_constraintTop_toBottomOf="@+id/textView3" />
+                app:layout_constraintStart_toEndOf="@+id/image"
+                app:layout_constraintTop_toBottomOf="@+id/title" />
 
             <TextView
                 android:id="@+id/textView5"
@@ -114,7 +114,7 @@
                 android:textColor="@color/text_not_focus"
 
                 app:layout_constraintEnd_toStartOf="@+id/imageView5"
-                app:layout_constraintStart_toEndOf="@+id/imageView3"
+                app:layout_constraintStart_toEndOf="@+id/image"
                 app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
             <ImageView
@@ -125,7 +125,7 @@
                 android:layout_marginLeft="8dp"
 
                 app:layout_constraintBottom_toBottomOf="@+id/textView6"
-                app:layout_constraintStart_toEndOf="@+id/imageView3"
+                app:layout_constraintStart_toEndOf="@+id/image"
                 app:layout_constraintTop_toTopOf="@+id/textView6"
                 app:srcCompat="@drawable/icon_star" />
 
@@ -140,7 +140,7 @@
                 android:text="4.5"
                 android:textColor="#FF0B19"
                 android:textSize="24sp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+                app:layout_constraintBottom_toBottomOf="@+id/image"
                 app:layout_constraintEnd_toStartOf="@+id/imageView5"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/imageView4"
