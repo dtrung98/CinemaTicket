@@ -46,6 +46,16 @@ public class DashBoard extends SupportFragment {
         getMainActivity().presentFragment(ChooseMovie.newInstance(ChooseMovie.MODE.UP_COMING));
     }
 
+    @OnClick(R.id.see_all_cinema_panel)
+    void goToAllCinemasPage() {
+        getMainActivity().presentFragment(AllCinemas.newInstance());
+    }
+
+    @OnClick(R.id.choose_cinema_for_showing_panel)
+    void goToChooseCinemasForShowing() {
+        getMainActivity().presentFragment(ChooseCinema.newInstance());
+    }
+
     @Nullable
     @Override
     protected View onCreateView(LayoutInflater inflater, ViewGroup container) {

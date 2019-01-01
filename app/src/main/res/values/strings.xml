@@ -40,12 +40,15 @@
     <string name="book_now">Book now</string>
     <string name="director_string">"Director: "</string>
     <string name="cast_string">"Casts: "</string>
+    <string name="address_string">"Address: "</string>
+    <string name="hotline_string">"Hotline: "</string>
     <string name="sign_in_or_sign_up_to_do_more_work">Sign in or sign up to do more work</string>
 
     <string name="control_center_for_admin">Control Center ( for admin )</string>
     <string name="dark_mode">Dark Mode</string>
     <string name="choose_movies_for_now_showing">Choose Movies for Now Showing</string>
     <string name="choose_movies_for_up_coming">Choose Movies for Up Coming</string>
+    <string name="choose_cinemas_for_showing">Choose Cinemas for Showing</string>
     <string name="loading">Sending...</string>
     <string name="load_live">Updating live data...</string>
     <string name="save_change">SAVE CHANGE</string>
