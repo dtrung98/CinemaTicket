@@ -1,9 +1,8 @@
-package com.ldt.cinematicket.ui.main.root;
+package com.ldt.cinematicket.ui.main.admin;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,30 +10,45 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.ldt.cinematicket.R;
+import com.ldt.cinematicket.model.Cinema;
+import com.ldt.cinematicket.ui.main.root.CinemaAdapter;
+import com.ldt.cinematicket.ui.widget.fragmentnavigationcontroller.PresentStyle;
+import com.ldt.cinematicket.ui.widget.fragmentnavigationcontroller.SupportFragment;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import com.ldt.cinematicket.model.Cinema;
-import com.ldt.cinematicket.ui.main.MainActivity;
+public class AllCinemas extends SupportFragment implements OnCompleteListener<QuerySnapshot>, OnFailureListener{
+    private static final String TAG ="AllCinemas";
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+    public static AllCinemas newInstance() {
+        return new AllCinemas();
+    }
 
-public class CinemaTab extends Fragment implements OnCompleteListener<QuerySnapshot>, OnFailureListener {
-    private static final String TAG ="CinemaTab";
+    @BindView(R.id.back_button)
+    ImageView mBackButton;
+
+    @BindView(R.id.title)
+    TextView mTitle;
+
+    @BindView(R.id.recycle_view)
+    RecyclerView mRecyclerView;
 
     @BindView(R.id.swipeLayout)
     SwipeRefreshLayout swipeLayout;
@@ -42,31 +56,26 @@ public class CinemaTab extends Fragment implements OnCompleteListener<QuerySnaps
     @BindView(R.id.textView)
     TextView mErrorTextView;
 
-    @BindView(R.id.recycle_view)
-    RecyclerView mRecyclerView;
-
     CinemaAdapter mAdapter;
 
     FirebaseFirestore db;
 
-    public static CinemaTab newInstance() {
-        CinemaTab fragment = new CinemaTab();
-        return fragment;
+    @OnClick(R.id.back_button)
+    void back() {
+        getMainActivity().dismiss();
     }
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.now_showing,container,false);
+    protected View onCreateView(LayoutInflater inflater, ViewGroup container) {
+        return inflater.inflate(R.layout.admin_all_cinemas,container,false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        Log.d(TAG, "onViewCreated: ");
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this,view);
-
-        db = ((MainActivity)getActivity()).db;
+        db = getMainActivity().db;
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false);
         mRecyclerView.setLayoutManager(layoutManager);
 
@@ -75,13 +84,15 @@ public class CinemaTab extends Fragment implements OnCompleteListener<QuerySnaps
         swipeLayout.setOnRefreshListener(this::refreshData);
         refreshData();
     }
+
     public void refreshData() {
         swipeLayout.setRefreshing(true);
-        db.collection("showing_cinema")
+        db.collection("cinema_list")
                 .get()
                 .addOnCompleteListener(this)
                 .addOnFailureListener(this);
     }
+
     @Override
     public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
@@ -116,4 +127,10 @@ public class CinemaTab extends Fragment implements OnCompleteListener<QuerySnaps
         mRecyclerView.setVisibility(View.GONE);
         mErrorTextView.setVisibility(View.VISIBLE);
     }
+
+    @Override
+    public int getPresentTransition() {
+        return PresentStyle.SLIDE_LEFT;
+    }
+
 }

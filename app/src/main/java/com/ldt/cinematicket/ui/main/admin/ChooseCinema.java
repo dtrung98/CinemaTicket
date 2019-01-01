@@ -15,11 +15,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.ldt.cinematicket.R;
-import com.ldt.cinematicket.model.Movie;
+import com.ldt.cinematicket.model.Cinema;
 import com.ldt.cinematicket.ui.widget.SuccessTickView;
 import com.ldt.cinematicket.ui.widget.fragmentnavigationcontroller.SupportFragment;
 import com.tuyenmonkey.mkloader.MKLoader;
@@ -32,9 +34,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ChooseMovie extends SupportFragment implements ChooseMovieAdapter.CountingCallBack {
-    private static final String TAG ="ChooseMovie";
-    private String mCollectionString;
+public class ChooseCinema extends SupportFragment implements ChooseCinemaAdapter.CountingCallBack {
+    private static final String TAG ="ChooseCinema";
 
     @BindView(R.id.back_button)
     ImageView mBackButton;
@@ -45,7 +46,7 @@ public class ChooseMovie extends SupportFragment implements ChooseMovieAdapter.C
     @BindView(R.id.recycle_view)
     RecyclerView mRecyclerView;
 
-    @BindView(R.id.swipe_layout)
+    @BindView(R.id.swipeLayout)
     SwipeRefreshLayout swipeLayout;
 
     @BindView(R.id.textView)
@@ -61,7 +62,7 @@ public class ChooseMovie extends SupportFragment implements ChooseMovieAdapter.C
     @BindView(R.id.success_tick_view)
     SuccessTickView mSuccessTickView;
 
-    ChooseMovieAdapter mAdapter;
+    ChooseCinemaAdapter mAdapter;
 
     FirebaseFirestore db;
 
@@ -81,36 +82,16 @@ public class ChooseMovie extends SupportFragment implements ChooseMovieAdapter.C
 
     }
 
-    public enum MODE {
-        FEATURE,
-        NOW_SHOWING,
-        UP_COMING
-    }
-    private MODE mMode;
-    int mTitleStringID;
-    public static ChooseMovie newInstance(MODE mode) {
-        ChooseMovie cm = new ChooseMovie();
-        cm.mMode = mode;
-        switch (mode) {
-            case FEATURE:
-                cm.mCollectionString = "feature_movie";
-                cm.mTitleStringID = R.string.choose_feature_movies;
-                break;
-            case NOW_SHOWING:
-                cm.mCollectionString = "now_showing";
-                cm.mTitleStringID = R.string.choose_now_showing_movies;
-            break;
-            case UP_COMING:cm.mCollectionString ="up_coming";
-                cm.mTitleStringID = R.string.choose_up_coming_movies;
-            break;
-        }
+    public static ChooseCinema newInstance() {
+        ChooseCinema cm = new ChooseCinema();
+
         return cm;
     }
 
     @Nullable
     @Override
     protected View onCreateView(LayoutInflater inflater, ViewGroup container) {
-        return inflater.inflate(R.layout.admin_choose_movie,container,false);
+        return inflater.inflate(R.layout.admin_choose_cinema,container,false);
     }
 
     @Override
@@ -119,38 +100,37 @@ public class ChooseMovie extends SupportFragment implements ChooseMovieAdapter.C
         ButterKnife.bind(this,view);
         step = 0;
 
-       mTitle.setText(mTitleStringID);
+        mTitle.setText(R.string.choose_cinemas_for_showing);
 
-        db = getMainActivity().mDb;
+        db = getMainActivity().db;
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false);
         mRecyclerView.setLayoutManager(layoutManager);
 
-        mAdapter = new ChooseMovieAdapter(getActivity());
+        mAdapter = new ChooseCinemaAdapter(getActivity());
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setCountingCallBack(this);
         swipeLayout.setOnRefreshListener(this::refreshData);
         refreshData();
 
     }
+
     // load 2 collection, counting
     int step = 0; // 0 -> 2
     public void refreshData() {
 
         mComfirmButton.setText(R.string.load_live);
-        ChooseMovie.this.swipeLayout.setRefreshing(true);
+        ChooseCinema.this.swipeLayout.setRefreshing(true);
         step = 0;
-        db.collection("movie")
+        db.collection("cinema_list")
                 .get()
-                .addOnCompleteListener(task -> ChooseMovie.this.onComplete("movie",task))
-                .addOnFailureListener(e -> ChooseMovie.this.onFailure("movie",e));
+                .addOnCompleteListener(task -> ChooseCinema.this.onComplete("cinema_list",task))
+                .addOnFailureListener(e -> ChooseCinema.this.onFailure("cinema_list",e));
 
 
-        db.collection(mCollectionString)
+        db.collection("showing_cinema")
                 .get()
-                .addOnCompleteListener(task -> ChooseMovie.this.onComplete(mCollectionString,task))
-                .addOnFailureListener(e -> ChooseMovie.this.onFailure(mCollectionString,e));
-
-
+                .addOnCompleteListener(task -> ChooseCinema.this.onComplete("showing_cinema",task))
+                .addOnFailureListener(e -> ChooseCinema.this.onFailure("showing_cinema",e));
 
     }
 
@@ -161,18 +141,18 @@ public class ChooseMovie extends SupportFragment implements ChooseMovieAdapter.C
         mComfirmButton.setEnabled(false);
         mComfirmButton.setText(R.string.loading);
 
-        List<Movie> savedMovies = mAdapter.getSavedSelectedData();
-        for (int i = 0; i < savedMovies.size(); i++) {
-            db.collection(mCollectionString).document(savedMovies.get(i).getId()+"").delete();
+        List<Cinema> savedCinemas = mAdapter.getSavedSelectedData();
+        for (int i = 0; i < savedCinemas.size(); i++) {
+            db.collection("showing_cinema").document(savedCinemas.get(i).getId()+"").delete();
         }
 
-        ArrayList<Movie> movies = mAdapter.getSelectedData();
+        ArrayList<Cinema> cinemas = mAdapter.getSelectedData();
 
-        for (int i = 0; i < movies.size(); i++) {
-            if(i!=movies.size()-1)
-            db.collection(mCollectionString).document(movies.get(i).getId()+"").set(movies.get(i));
+        for (int i = 0; i < cinemas.size(); i++) {
+            if(i != cinemas.size() - 1)
+                db.collection("showing_cinema").document(cinemas.get(i).getId()+"").set(cinemas.get(i));
             else
-                db.collection(mCollectionString).document(movies.get(i).getId()+"").set(movies.get(i)).addOnSuccessListener(aVoid -> {
+                db.collection("showing_cinema").document(cinemas.get(i).getId()+"").set(cinemas.get(i)).addOnSuccessListener(aVoid -> {
 
                     refreshData();
 
@@ -181,10 +161,7 @@ public class ChooseMovie extends SupportFragment implements ChooseMovieAdapter.C
                     refreshData();
                 });
         }
-
     }
-
-
 
     public void onComplete(String query, @NonNull Task<QuerySnapshot> task) {
         step++;
@@ -210,21 +187,21 @@ public class ChooseMovie extends SupportFragment implements ChooseMovieAdapter.C
             }
         }
 
-        if (task.isSuccessful()&&query.equals("movie")) {
+        if (task.isSuccessful()&&query.equals("cinema_list")) {
 
-            // result of movie collection
+            // result of cinema collection
 
             QuerySnapshot querySnapshot = task.getResult();
-            List<Movie> mM = querySnapshot.toObjects(Movie.class);
+            List<Cinema> mM = querySnapshot.toObjects(Cinema.class);
             Collections.sort(mM, (o1, o2) -> o1.getId() - o2.getId());
             if(mAdapter!=null)
-            mAdapter.setMovieData(mM);
+                mAdapter.setCinemaData(mM);
 
-        } else if(task.isSuccessful()&&query.equals(mCollectionString)) {
+        } else if(task.isSuccessful()&&query.equals("showing_cinema")) {
 
             // result of now_showing or upcoming collection
             QuerySnapshot querySnapshot = task.getResult();
-            List<Movie> mM = querySnapshot.toObjects(Movie.class);
+            List<Cinema> mM = querySnapshot.toObjects(Cinema.class);
             Collections.sort(mM, (o1, o2) -> o1.getId() - o2.getId());
             Log.d(TAG, "onComplete: number selected = "+mM.size());
             if(mAdapter!=null)
