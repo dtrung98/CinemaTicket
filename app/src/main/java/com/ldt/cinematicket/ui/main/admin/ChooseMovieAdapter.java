@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,6 +29,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
 public class ChooseMovieAdapter extends RecyclerView.Adapter<ChooseMovieAdapter.ItemHolder> {
@@ -175,10 +177,12 @@ public class ChooseMovieAdapter extends RecyclerView.Adapter<ChooseMovieAdapter.
             if(mSelectedData.size()>getAdapterPosition() && mSelectedData.get(getAdapterPosition())) {
                 Log.d(TAG, "bind: select position = "+getAdapterPosition());
                 mPanel.setBackgroundResource(R.drawable.black_rounded_big_selected);
+                if(!mCheckbox.isChecked())
                 mCheckbox.setChecked(true);
             }
             else {
                 mPanel.setBackgroundResource(R.drawable.black_rounded_big);
+                if(mCheckbox.isChecked())
                 mCheckbox.setChecked(false);
             }
 
@@ -187,6 +191,7 @@ public class ChooseMovieAdapter extends RecyclerView.Adapter<ChooseMovieAdapter.
                     .load(movie.getImageUrl())
                     .apply(requestOptions)
                     .into(mImg);
+
         }
     }
 }

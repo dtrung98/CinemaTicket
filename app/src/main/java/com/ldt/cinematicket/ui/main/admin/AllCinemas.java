@@ -75,7 +75,7 @@ public class AllCinemas extends SupportFragment implements OnCompleteListener<Qu
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this,view);
-        db = getMainActivity().db;
+        db = getMainActivity().mDb;
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false);
         mRecyclerView.setLayoutManager(layoutManager);
 

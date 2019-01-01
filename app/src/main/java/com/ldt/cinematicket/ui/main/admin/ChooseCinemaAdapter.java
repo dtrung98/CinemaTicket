@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,6 +29,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
 public class ChooseCinemaAdapter extends RecyclerView.Adapter<ChooseCinemaAdapter.ItemHolder> {
@@ -166,6 +168,8 @@ public class ChooseCinemaAdapter extends RecyclerView.Adapter<ChooseCinemaAdapte
             ButterKnife.bind(this,itemView);
         }
 
+
+
         @OnClick(R.id.panel)
         void clickPanel() {
             boolean b = mSelectedData.get(getAdapterPosition());
@@ -200,10 +204,12 @@ public class ChooseCinemaAdapter extends RecyclerView.Adapter<ChooseCinemaAdapte
             if(mSelectedData.size() > getAdapterPosition() && mSelectedData.get(getAdapterPosition())) {
                 Log.d(TAG, "bind: select position = " + getAdapterPosition());
                 mPanel.setBackgroundResource(R.drawable.black_rounded_big_selected);
+                if(!mCheckbox.isChecked())
                 mCheckbox.setChecked(true);
             }
             else {
                 mPanel.setBackgroundResource(R.drawable.black_rounded_big);
+                if(mCheckbox.isChecked())
                 mCheckbox.setChecked(false);
             }
 

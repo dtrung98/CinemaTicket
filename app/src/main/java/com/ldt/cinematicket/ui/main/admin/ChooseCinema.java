@@ -102,7 +102,7 @@ public class ChooseCinema extends SupportFragment implements ChooseCinemaAdapter
 
         mTitle.setText(R.string.choose_cinemas_for_showing);
 
-        db = getMainActivity().db;
+        db = getMainActivity().mDb;
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false);
         mRecyclerView.setLayoutManager(layoutManager);
 

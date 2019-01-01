@@ -25,6 +25,7 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="25dp"
         android:layout_marginLeft="25dp"
+        android:clickable="false"
         />
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/img"

@@ -17,34 +17,35 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class DashBoard extends SupportFragment {
-    public static DashBoard newInstance() {
-        return new DashBoard();
+public class CinemaManagement extends SupportFragment {
+    public static CinemaManagement newInstance() {
+        return new CinemaManagement();
     }
 
-    @BindView(R.id.back_button) ImageView mBackButton;
-    @BindView(R.id.title) TextView mTitle;
+    @BindView(R.id.back_button)
+    ImageView mBackButton;
+    @BindView(R.id.title)
+    TextView mTitle;
 
     @OnClick(R.id.back_button)
     void back() {
         getMainActivity().dismiss();
     }
 
-   @OnClick(R.id.movie_panel)
-   void goToMovieManagement(){
-       getMainActivity().presentFragment(MovieManagement.newInstance());
-   }
-   
-   @OnClick(R.id.cinema_panel)
-   void goToCinemaManagement() {
-        getMainActivity().presentFragment(CinemaManagement.newInstance());
-   }
 
-    @Nullable
-    @Override
-    protected View onCreateView(LayoutInflater inflater, ViewGroup container) {
+    @OnClick(R.id.see_all_cinema_panel)
+    void goToAllCinemasPage() {
+        getMainActivity().presentFragment(AllCinemas.newInstance());
+    }
 
-        return inflater.inflate(R.layout.admin_dash_board,container,false);
+    @OnClick(R.id.choose_cinema_for_showing_panel)
+    void goToChooseCinemasForShowing() {
+        getMainActivity().presentFragment(ChooseCinema.newInstance());
+    }
+
+    @OnClick(R.id.add_new_cinema_panel)
+    void gotToAddNewCinema() {
+        // getMainActivity().presentFragment(AddNewCinema.newInstance());
     }
 
     @Override
@@ -56,5 +57,10 @@ public class DashBoard extends SupportFragment {
     @Override
     public int getPresentTransition() {
         return PresentStyle.SLIDE_LEFT;
+    }
+    @Nullable
+    @Override
+    protected View onCreateView(LayoutInflater inflater, ViewGroup container) {
+        return inflater.inflate(R.layout.admin_cinema_dashboard,container,false);
     }
 }

@@ -66,8 +66,6 @@
     <string name="loading">Sending…</string>
     <string name="load_live">Updating live data…</string>
     <string name="choose_cinemas_for_showing">Choose Cinemas for Showing</string>
-    <string name="loading">Sending...</string>
-    <string name="load_live">Updating live data...</string>
     <string name="save_change">SAVE CHANGE</string>
     <string name="add_new_movie">Add new movie</string>
     <string name="all_movies">All Movies</string>
@@ -85,5 +83,9 @@
     <string name="choose_up_coming_movies">Choose Up Coming movies</string>
     <string name="choose_now_showing_movies">Choose Now Showing movies</string>
     <string name="exist_movie_alert">Using a Movie ID which already exists will update that movie</string>
+    <string name="all_cinemas">All Cinemas</string>
+    <string name="choose_showing_cinemas">Choose Showing Cinemas</string>
+    <string name="add_new_cinema">Add new cinema</string>
+    <string name="cinema_management">Cinema Management</string>
 
 </resources>

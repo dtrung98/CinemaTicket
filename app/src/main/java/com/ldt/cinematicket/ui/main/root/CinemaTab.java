@@ -36,7 +36,7 @@ import java.util.List;
 public class CinemaTab extends Fragment implements OnCompleteListener<QuerySnapshot>, OnFailureListener {
     private static final String TAG ="CinemaTab";
 
-    @BindView(R.id.swipeLayout)
+    @BindView(R.id.swipe_layout)
     SwipeRefreshLayout swipeLayout;
 
     @BindView(R.id.textView)
@@ -66,7 +66,7 @@ public class CinemaTab extends Fragment implements OnCompleteListener<QuerySnaps
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this,view);
 
-        db = ((MainActivity)getActivity()).db;
+        db = ((MainActivity)getActivity()).mDb;
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false);
         mRecyclerView.setLayoutManager(layoutManager);
 
