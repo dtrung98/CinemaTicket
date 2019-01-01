@@ -25,5 +25,21 @@
     <color name="pink_light_1">#ff0057</color>
     <color name="setting_label_color">#B8B8B8</color>
     <color name="success_stroke_color">#A5DC86</color>
+    <color name="FlatRed">#FF3B30</color>
+    <color name="FlatGreen">#4CD964</color>
+    <color name="FlatOrange">#FF9500</color>
+    <color name="FlatYellow">#FFCC00</color>
+    <color name="FlatTealBlue">#5AC8FA</color>
+    <color name="FlatPurple">#5856D6</color>
+    <color name="FlatPink">#FF2D55</color>
+    <color name="FlatBlue">#007AFF</color>
 
+    <color name="HeavyOrange">#AF8700</color>
+    <color name="HeavyRed">#770000</color>
+    <color name="HeavyTealBlue">#0058AA</color>
+    <color name="HeavyYellow">#802D00</color>
+    <color name="HeavyGreen">#005800</color>
+    <color name="HeavyBlue">#00218B</color>
+    <color name="HeavyPurple">#162EA6</color>
+    <color name="HeavyPink">#B60024</color>
 </resources>

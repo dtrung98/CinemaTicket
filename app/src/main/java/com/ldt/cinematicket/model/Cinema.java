@@ -5,21 +5,19 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 
 public class Cinema {
-    @SerializedName("Address")
+    @SerializedName("address")
     private String Address;
-    @SerializedName("Description")
-    private String Description;
-    @SerializedName("Hotline")
+    @SerializedName("hotline")
     private String Hotline;
-    @SerializedName("ID")
+    @SerializedName("id")
     private int ID;
-    @SerializedName("ImageUrl")
+    @SerializedName("imageUrl")
     private String ImageUrl;
-    @SerializedName("Name")
+    @SerializedName("name")
     private String Name;
-    @SerializedName("Movies")
+    @SerializedName("movies")
     private ArrayList<Integer> Movies;
-    @SerializedName("ShowTimes")
+    @SerializedName("showTimes")
     private ArrayList<Integer> ShowTimes;
 
     public String getAddress() {
@@ -28,14 +26,6 @@ public class Cinema {
 
     public void setAddress(String Address) {
         this.Address = Address;
-    }
-
-    public String getDescription() {
-        return Description;
-    }
-
-    public void setDescription(String Description) {
-        this.Description = Description;
     }
 
     public String getHotline() {

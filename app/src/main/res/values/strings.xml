@@ -52,5 +52,13 @@
     <string name="loading">Sending...</string>
     <string name="load_live">Updating live data...</string>
     <string name="save_change">SAVE CHANGE</string>
+    <string name="add_new_cinema">Add new cinema</string>
+    <string name="alert_leaving">Everything will be deleted after you leave !</string>
+    <string name="ok_i_know">Ok, I know</string>
+    <string name="auto_id">( Auto-generated ID )</string>
+    <string name="creating_new_id">Creating new ID …</string>
+    <string name="fail_to_create_id">Unable to create ID, please refresh the data</string>
+    <string name="exist_cinema_alert">Using a Cinema ID which already exists will replace that cinema</string>
+    <string name="sending_data">Sending data …</string>
 
 </resources>
