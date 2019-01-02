@@ -1,122 +1,133 @@
 package com.ldt.cinematicket.ui.main.book;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.annotation.SuppressLint;
+
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
+
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
-import android.widget.Toast;
+
+import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.ldt.cinematicket.model.Movie;
 import com.ldt.cinematicket.ui.widget.fragmentnavigationcontroller.PresentStyle;
 import com.ldt.cinematicket.ui.widget.fragmentnavigationcontroller.SupportFragment;
-import com.ldt.cinematicket.util.BitmapEditor;
 import com.ldt.cinematicket.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-public class BookingFragment extends SupportFragment implements View.OnClickListener {
+public class BookingFragment extends SupportFragment {
     private static final String TAG="BookingFragment";
 
-
-    private View root;
-    private ImageView imageView;
-    private View showTimeTextView,time2,time3,time4;
-    private ImageView menu_view;
-
-    @BindView(R.id.card_detail) CardView card_detail;
-    public static BookingFragment newInstance() {
-        return new BookingFragment();
+    public static BookingFragment newInstance(Movie movie) {
+        BookingFragment bf = new BookingFragment();
+        bf.mMovie = movie;
+        return bf;
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
-        root= inflater.inflate(R.layout.booking, container, false);
-        ButterKnife.bind(this,root);
-
-        card_detail.setOnClickListener(this);
-        toolbar = root.findViewById(R.id.toolbar);
-        showTimeTextView = root.findViewById(R.id.show_time_textView);
-        time2= root.findViewById(R.id.time_2);
-        time3 = root.findViewById(R.id.time_3);
-        time4 = root.findViewById(R.id.time_4);
-        menu_view = root.findViewById(R.id.menu_view);
-        menu_view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                PopupMenu popupMenu = new PopupMenu(getActivity(),view);
-                popupMenu.inflate(R.menu.my_menu);
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem menuItem) {
-                        String s;
-                        switch (menuItem.getItemId()) {
-                            case R.id.line1: s= "Line 1"; break;
-                            case R.id.line2: s="Line 2";break;
-                            case R.id.line3: s="Line 3";break;
-                            default:s="Line 4";break;
-                        }
-
-                        Toast.makeText(getActivity(),s,Toast.LENGTH_SHORT).show();
-                        return true;
-                    }
-                });
-                popupMenu.show();
-            }
-        });
-        showTimeTextView.setOnClickListener(this);
-        time2.setOnClickListener(this);
-        time3.setOnClickListener(this);
-        time4.setOnClickListener(this);
-        imageView = root.findViewById(R.id.image);
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.madagasca);
-
-        Bitmap new2 = BitmapEditor.getMyCustomRoundedBitmap(bitmap, (int)bitmap.getWidth()/16);
-
-       // Bitmap ret =  BitmapEditor.GetRoundedBitmapWithBlurShadow(getActivity(), new2, 30, 30, 30, 30, -6, 180, 12, 2);
-        //new2.recycle();
-
-       // newBitmap =BitmapEditor.GetRoundedBitmapWithBlurShadow(bitmap,5,5,5,5);
-        imageView.setImageBitmap(new2);
-        setupToolbar();
-        return root;
-    }
+    Movie mMovie;
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
-    private void setupToolbar() {
 
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+    @BindView(R.id.movie_panel) View mMoviePanel;
+    @BindView(R.id.image) ImageView mImage;
+    @BindView(R.id.title) TextView mTitle;
+    @BindView(R.id.genre) TextView mGenre;
+    @BindView(R.id.duration) TextView mDuration;
+    @BindView(R.id.rate) TextView mRate;
+    @BindView(R.id.next) View mNext;
 
-        final ActionBar ab = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        ab.setDisplayShowTitleEnabled(false);
-        ab.setDisplayHomeAsUpEnabled(true);
-    }
+    @BindView(R.id.date_recycler_view)
+    RecyclerView mDateRecyclerView;
 
+    @BindView(R.id.cinema_recycle_view)
+    RecyclerView mCinemaRecyclerView;
 
-    public void ShowTimeViewOnClick(View view) {
+    @BindView(R.id.swipe_layout)
+    SwipeRefreshLayout mSwipeLayout;
 
-    }
-
-    @Override
-    public void onClick(View view) {
-        if(view.getId() == R.id.card_detail) {
-            getMainActivity().presentFragment(MovieDetail.newInstance(null));
-        } else
-        getMainActivity().presentFragment(ChooseSeat.newInstance(view));
-    }
+    @BindView(R.id.error) TextView mError;
 
     @Override
     public int getPresentTransition() {
         return PresentStyle.SLIDE_LEFT;
+    }
+
+    private void setupToolbar() {
+        if(getActivity() instanceof AppCompatActivity) {
+            ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+
+            final ActionBar ab = ((AppCompatActivity) getActivity()).getSupportActionBar();
+            if (ab != null) {
+                ab.setDisplayShowTitleEnabled(false);
+                ab.setDisplayHomeAsUpEnabled(true);
+            }
+        }
+    }
+
+    @Nullable
+    @Override
+    protected View onCreateView(LayoutInflater inflater, ViewGroup container) {
+        return inflater.inflate(R.layout.booking_v2,container,false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        ButterKnife.bind(this,view);
+        setupToolbar();
+        bindMovie();
+        mSwipeLayout.setOnRefreshListener(this::searchForAllCinema);
+        searchForAllCinema();
+    }
+
+    @SuppressLint("DefaultLocale")
+    private void bindMovie() {
+        if(mMovie==null) return;
+        mTitle.setText(mMovie.getTitle());
+        mGenre.setText(mMovie.getGenre());
+        mDuration.setText(String.format("%d min", mMovie.getDuration()));
+        mRate.setText(String.format("%s", mMovie.getRate()));
+
+        RequestOptions requestOptions = new RequestOptions();
+        if(getContext()!=null) {
+            Glide.with(getContext())
+                    .load(mMovie.getImageUrl())
+                    .apply(requestOptions)
+                    .into(mImage);
+        }
+    }
+
+    @OnClick(R.id.movie_panel)
+    void goToMovieDetail(){
+        if(mMovie!=null) {
+            getMainActivity().presentFragment(MovieDetail.newInstance(mMovie));
+        }
+    }
+    void searchForAllCinema() {
+        mSwipeLayout.setRefreshing(true);
+        if(mMovie==null) {
+          mSwipeLayout.setRefreshing(false);
+          mError.setVisibility(View.VISIBLE);
+        } else {
+            mSwipeLayout.setRefreshing(false);
+            mError.setVisibility(View.VISIBLE);
+            //TODO: Search All Cinema
+        }
     }
 }

@@ -126,7 +126,7 @@ public class HomeChildAdapter  extends RecyclerView.Adapter<HomeChildAdapter.Ite
         @OnClick(R.id.book)
         void goToBook() {
             if(mContext instanceof MainActivity) {
-                ((MainActivity) mContext).presentFragment(BookingFragment.newInstance());
+                ((MainActivity) mContext).presentFragment(BookingFragment.newInstance(mData.get(getAdapterPosition())));
             }
         }
     }

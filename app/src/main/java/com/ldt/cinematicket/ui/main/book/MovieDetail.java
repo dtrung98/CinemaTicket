@@ -52,7 +52,7 @@ public class MovieDetail extends SupportFragment {
 
     @OnClick(R.id.book_now_button)
     void goToBooking() {
-        getMainActivity().presentFragment(BookingFragment.newInstance());
+        getMainActivity().presentFragment(BookingFragment.newInstance(mMovie));
     }
 
     @OnClick(R.id.back_button)

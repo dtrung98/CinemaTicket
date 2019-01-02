@@ -87,5 +87,7 @@
     <string name="choose_showing_cinemas">Choose Showing Cinemas</string>
     <string name="add_new_cinema">Add new cinema</string>
     <string name="cinema_management">Cinema Management</string>
+    <string name="detail">Detail</string>
+    <string name="booking">Booking</string>
 
 </resources>
