@@ -57,9 +57,5 @@ public class InOutActivity extends AppCompatActivity {
             super.onBackPressed();
     }
 
-    public void goToHomeScreen() {
-        Intent intent = new Intent(this,MainActivity.class);
-        finish();
-        startActivity(intent);
-    }
+
 }

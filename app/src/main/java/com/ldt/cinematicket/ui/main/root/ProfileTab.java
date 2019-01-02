@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.SwitchCompat;
@@ -19,8 +20,11 @@ import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.ldt.cinematicket.R;
+import com.ldt.cinematicket.data.MyPrefs;
+import com.ldt.cinematicket.ui.inout.LogIn;
 import com.ldt.cinematicket.ui.main.MainActivity;
 import com.ldt.cinematicket.ui.main.admin.DashBoard;
+import com.ldt.cinematicket.ui.main.root.ProfileDetail;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,13 +33,18 @@ import butterknife.OnClick;
 
 public class ProfileTab extends Fragment {
     private static final String TAG ="ProfileTab";
-    Button btnSignout;
+    MyPrefs myPrefs;
     FirebaseAuth mAuth;
+    FirebaseUser user;
 
     public static ProfileTab newInstance() {
         ProfileTab fragment = new ProfileTab();
         return fragment;
     }
+    // Profile Detail
+    @BindView(R.id.profile_detail_panel) View mProfileDetailPanel;
+    @BindView(R.id.profile_detail) View mProfileDetail;
+    @BindView(R.id.next_profile_detail) View mProfileDetailNext;
 
     // Control Center
     @BindView(R.id.control_center_panel) View mControlCenterPanel;
@@ -49,11 +58,19 @@ public class ProfileTab extends Fragment {
 
     @BindView(R.id.avatar) ImageView mAvatarView;
     @BindView(R.id.user_id) TextView mDisplayName;
+    @BindView(R.id.txt_suggest) TextView mSuggestion;
     @BindView(R.id.sign_in) FloatingActionButton mAddAccountButton;
+
+    @BindView(R.id.btn_sign_out) Button btnSignout;
 
     @OnClick(R.id.control_center_panel)
     void goToControlCenter() {
         ((MainActivity)getActivity()).presentFragment(DashBoard.newInstance());
+    }
+
+    @OnClick(R.id.profile_detail_panel)
+    void goToInfoDetail() {
+        ((MainActivity)getActivity()).presentFragment(ProfileDetail.newInstance());
     }
 
     @OnClick(R.id.theme_panel)
@@ -69,7 +86,22 @@ public class ProfileTab extends Fragment {
 
     @OnClick({R.id.avatar,R.id.sign_in})
     void avatarClick() {
-        Toast.makeText(getContext(),"Account management will be available soon.",Toast.LENGTH_SHORT).show();
+        if(!myPrefs.getIsSignIn()){
+            ((MainActivity)getActivity()).presentFragment(LogIn.newInstance());
+        }
+        else{
+            Toast.makeText(getContext(),"Not yet",Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @OnClick({R.id.btn_sign_out})
+    void signOut() {
+        mAuth.signOut();
+        myPrefs.setIsSignIn(false);
+        myPrefs.setIsAdmin(false);
+        getUserInfo();
+        updateSignInOutUI();
+        ((MainActivity)getActivity()).restartHomeScreen();
     }
 
     @Nullable
@@ -83,12 +115,16 @@ public class ProfileTab extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this,view);
 
+        myPrefs = new MyPrefs(getContext());
+
         mAuth = FirebaseAuth.getInstance();
+
         getUserInfo();
+        updateSignInOutUI();
     }
 
     private void getUserInfo(){
-        FirebaseUser user = mAuth.getCurrentUser();
+        user = ((MainActivity)getActivity()).user;
         if (user != null) {
             // Name, email address, and profile photo Url
             String name = user.getDisplayName();
@@ -106,12 +142,46 @@ public class ProfileTab extends Fragment {
                         .into(mAvatarView);
             }
 
-            if(name == null){
+
+            if(name == null || name.matches("")){
                 mDisplayName.setText(email);
             }
             else{
                 mDisplayName.setText(name);
             }
+        }
+        else{
+            mDisplayName.setText("@anonymous");
+            Glide.with(this)
+                    .load(R.drawable.movie_pop_corn)
+                    .into(mAvatarView);
+        }
+    }
+
+    private void updateSignInOutUI(){
+        if(myPrefs.getIsSignIn()){
+            mAddAccountButton.hide();
+            mSuggestion.setVisibility(View.GONE);
+            btnSignout.setVisibility(View.VISIBLE);
+            mProfileDetail.setVisibility(View.VISIBLE);
+            mProfileDetailNext.setVisibility(View.VISIBLE);
+            if(!myPrefs.getIsAdmin()){
+                mControlCenter.setVisibility(View.GONE);
+                mControlCenterNext.setVisibility(View.GONE);
+            }
+            else{
+                mControlCenter.setVisibility(View.VISIBLE);
+                mControlCenterNext.setVisibility(View.VISIBLE);
+            }
+        }
+        else{
+            mAddAccountButton.show();
+            mSuggestion.setVisibility(View.VISIBLE);
+            btnSignout.setVisibility(View.GONE);
+            mProfileDetail.setVisibility(View.GONE);
+            mProfileDetailNext.setVisibility(View.GONE);
+            mControlCenter.setVisibility(View.GONE);
+            mControlCenterNext.setVisibility(View.GONE);
         }
     }
 }

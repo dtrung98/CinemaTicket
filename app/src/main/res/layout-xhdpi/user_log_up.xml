@@ -64,7 +64,7 @@
             android:id="@+id/edi_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_gravity="center"
@@ -90,7 +90,7 @@
             android:id="@+id/edi_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_gravity="center"
@@ -117,7 +117,7 @@
             android:id="@+id/edi_retype"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_gravity="center"
@@ -140,13 +140,35 @@
                 android:hint="@string/retype_password"/>
         </android.support.design.widget.TextInputLayout>
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/chb_terms_privacy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/txt_terms_privacy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="@string/terms_privacy"
+                android:textSize="16sp" />
+        </LinearLayout>
+
         <Button
             android:id="@+id/btn_create"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="30dp"
             android:layout_marginEnd="30dp"
             android:layout_marginBottom="12dp"
             android:background="@drawable/btn_create"
@@ -170,7 +192,6 @@
                 android:text="@string/string_5"
                 android:textColor="@color/text_not_focus"
                 android:textSize="16sp" />
-
 
             <TextView
                 android:id="@+id/sign_in"

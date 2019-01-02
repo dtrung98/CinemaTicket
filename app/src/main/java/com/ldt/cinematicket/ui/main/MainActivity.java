@@ -1,5 +1,7 @@
 package com.ldt.cinematicket.ui.main;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -11,8 +13,20 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.ldt.cinematicket.R;
+import com.ldt.cinematicket.data.MyPrefs;
+import com.ldt.cinematicket.model.UserInfo;
 import com.ldt.cinematicket.ui.main.root.BottomPagerAdapter;
 import com.ldt.cinematicket.ui.main.root.FireBaseActivity;
 import com.ldt.cinematicket.ui.widget.fragmentnavigationcontroller.SupportFragment;
@@ -24,6 +38,10 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends FireBaseActivity  {
     private static final String TAG ="MainActivity";
+    FirebaseAuth mAuth;
+    public FirebaseFirestore mDb;
+    public FirebaseUser user;
+    MyPrefs myPrefs;
 
     @BindView(R.id.message) TextView mTextMessage;
 
@@ -87,6 +105,12 @@ public class MainActivity extends FireBaseActivity  {
         setContentView(R.layout.main_activity);
         ButterKnife.bind(this);
 
+        mAuth = FirebaseAuth.getInstance();
+        mDb = FirebaseFirestore.getInstance();
+        user = mAuth.getCurrentUser();
+        myPrefs = new MyPrefs(this);
+        getUserType();
+
         mBottomAdapter = new BottomPagerAdapter(this,getSupportFragmentManager());
         mBottomPager.setAdapter(mBottomAdapter);
 
@@ -94,6 +118,7 @@ public class MainActivity extends FireBaseActivity  {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         initBackStack(savedInstanceState);
+
     }
     public static int PRESENT_STYLE_DEFAULT = PresentStyle.ACCORDION_LEFT;
 
@@ -147,6 +172,35 @@ public class MainActivity extends FireBaseActivity  {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.bottom_view_pager, newFragment, tag)
                 .commit();
+    }
 
+    public void restartHomeScreen() {
+        Intent intent = new Intent(this,MainActivity.class);
+        finish();
+        startActivity(intent);
+    }
+
+    private void getUserType(){
+        if(myPrefs.getIsSignIn()){
+            String id = user.getUid();
+
+            DocumentReference userGet = mDb.collection("user_info").document(id);
+            userGet.get()
+                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            UserInfo info = documentSnapshot.toObject(UserInfo.class);
+                            if(!info.getUserType().matches("")){
+                                myPrefs.setIsAdmin(true);
+                            }
+                            else{
+                                myPrefs.setIsAdmin(false);
+                            }
+                        }
+                    });
+        }
+        else{
+            myPrefs.setIsAdmin(false);
+        }
     }
 }
