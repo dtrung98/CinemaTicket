@@ -40,6 +40,11 @@ public class DashBoard extends SupportFragment {
         getMainActivity().presentFragment(CinemaManagement.newInstance());
    }
 
+    @OnClick(R.id.add_new_cinema_panel)
+    void goToAddNewCinema() {
+        getMainActivity().presentFragment(AddNewCinema.newInstance());
+    }
+
     @Nullable
     @Override
     protected View onCreateView(LayoutInflater inflater, ViewGroup container) {

@@ -24,16 +24,16 @@
         app:srcCompat="@drawable/ic_close_black_24dp"
         android:padding="12dp"
         android:tint="@color/setting_label_color"/>
-<com.tuyenmonkey.mkloader.MKLoader
-    android:id="@+id/loading"
-    android:layout_width="40dp"
-    android:layout_height="40dp"
-    android:layout_marginTop="20dp"
-    app:mk_type="Whirlpool"
-    app:mk_color="#aaffffff"
-    app:layout_constraintTop_toBottomOf="@id/toggleButton"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"/>
+    <com.tuyenmonkey.mkloader.MKLoader
+        android:id="@+id/loading"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        app:mk_type="Whirlpool"
+        app:mk_color="#aaffffff"
+        app:layout_constraintTop_toBottomOf="@id/toggleButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
     <com.ldt.cinematicket.ui.widget.SuccessTickView
         android:id="@+id/success_tick_view"
         android:layout_width="0dp"
