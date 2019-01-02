@@ -45,7 +45,7 @@ public class CinemaManagement extends SupportFragment {
 
     @OnClick(R.id.add_new_cinema_panel)
     void gotToAddNewCinema() {
-        // getMainActivity().presentFragment(AddNewCinema.newInstance());
+         getMainActivity().presentFragment(AddNewCinema.newInstance());
     }
 
     @Override

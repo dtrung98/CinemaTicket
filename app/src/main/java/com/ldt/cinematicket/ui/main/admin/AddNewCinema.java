@@ -331,7 +331,7 @@ public class AddNewCinema extends SupportFragment implements RequestListener<Dra
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this,view);
-        mDb = getMainActivity().db;
+        mDb = getMainActivity().mDb;
         ExpandOrCollapseOptionPanel();
         //disableIdField();
         mSwipeLayout.setOnRefreshListener(this::refreshData);
