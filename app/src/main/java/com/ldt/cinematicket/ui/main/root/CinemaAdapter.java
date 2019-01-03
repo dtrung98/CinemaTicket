@@ -15,6 +15,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.ldt.cinematicket.R;
 import com.ldt.cinematicket.model.Cinema;
 import com.ldt.cinematicket.ui.main.MainActivity;
+import com.ldt.cinematicket.ui.main.root.trendingtab.NowShowingChildTab;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,8 +103,9 @@ public class CinemaAdapter extends RecyclerView.Adapter<CinemaAdapter.ItemHolder
         @OnClick(R.id.panel)
         void clickPanel() {
             if(mListener!=null) mListener.onItemClick(mData.get(getAdapterPosition()));
-            else {
-                Toast.makeText(mContext,"Clicked",Toast.LENGTH_SHORT).show();
+            else if(mContext instanceof MainActivity) {
+                ((MainActivity) mContext).presentFragment(NowShowingMoviesOfCinema.newInstance(
+                        mData.get(getAdapterPosition()).getMovies(), mData.get(getAdapterPosition()).getName()));
             }
         }
 
