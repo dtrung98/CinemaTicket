@@ -197,7 +197,11 @@ public class LogIn extends SupportFragment implements View.OnClickListener {
     private void facebookSignIn(){
         mCallbackManager = CallbackManager.Factory.create();
 
-        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
+        if (AccessToken.getCurrentAccessToken() != null) {
+            LoginManager.getInstance().logOut();
+        }
+
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("email","public_profile"));
         LoginManager.getInstance().registerCallback(mCallbackManager,new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -336,7 +340,12 @@ public class LogIn extends SupportFragment implements View.OnClickListener {
         info.setUserType("");
         info.setId(user.getUid());
         info.setFullName(fullname);
-        info.setEmail(user.getEmail());
+        if(user.getEmail() == null){
+            info.setEmail("");
+        }
+        else{
+            info.setEmail(user.getEmail());
+        }
         info.setBirthDay("");
         info.setGender("");
         info.setPhoneNumber("");
@@ -364,7 +373,12 @@ public class LogIn extends SupportFragment implements View.OnClickListener {
         }
 
         info.setFullName(fullname);
-        info.setEmail(user.getEmail());
+        if(user.getEmail() == null){
+            info.setEmail("");
+        }
+        else{
+            info.setEmail(user.getEmail());
+        }
 
         Log.d(TAG, "User Updated");
 
