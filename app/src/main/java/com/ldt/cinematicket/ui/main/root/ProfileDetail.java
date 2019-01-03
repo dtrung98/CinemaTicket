@@ -1,12 +1,17 @@
 package com.ldt.cinematicket.ui.main.root;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +24,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -32,6 +38,7 @@ import com.ldt.cinematicket.model.UserInfo;
 import com.ldt.cinematicket.ui.main.MainActivity;
 import com.ldt.cinematicket.ui.widget.fragmentnavigationcontroller.PresentStyle;
 import com.ldt.cinematicket.ui.widget.fragmentnavigationcontroller.SupportFragment;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.Calendar;
 import java.util.Objects;
@@ -52,6 +59,10 @@ public class ProfileDetail extends SupportFragment {
     }
 
     //My Account
+    @BindView(R.id.avatar) RoundedImageView mAvatar;
+
+    @BindView(R.id.edi_balance) TextView ediBalance;
+
     @BindView(R.id.edi_fullname) TextInputLayout ediFullname;
     @BindView(R.id.txt_fullname) TextInputEditText txtFullname;
 
@@ -100,8 +111,7 @@ public class ProfileDetail extends SupportFragment {
 
     @OnClick(R.id.btn_save)
     void saveInfo() {
-        updateUserInfo();
-    }
+        confirmProfileChange();    }
 
     @OnClick(R.id.btn_back)
     void back() {
@@ -159,7 +169,6 @@ public class ProfileDetail extends SupportFragment {
         String phoneNumber = Objects.requireNonNull(ediPhoneNumber.getEditText()).getText().toString().trim();
         String address = Objects.requireNonNull(ediAddress.getEditText()).getText().toString().trim();
 
-        info.setUserType(null);
         info.setId(user.getUid());
         info.setFullName(fullname);
         info.setEmail(email);
@@ -176,7 +185,6 @@ public class ProfileDetail extends SupportFragment {
                 .set(user)
                 .addOnSuccessListener(aVoid -> {
                     Log.w(TAG, "addUserToDatabase:success");
-                    ((MainActivity)getActivity()).dismiss();
                 })
                 .addOnFailureListener(e -> {
                     Log.w(TAG, "addUserToDatabase:failure", e);
@@ -198,6 +206,17 @@ public class ProfileDetail extends SupportFragment {
     }
 
     private void updateProfileUI(){
+        if(info.getAvaUrl().matches("")){
+            Glide.with(this)
+                    .load(R.drawable.movie_pop_corn)
+                    .into(mAvatar);
+        }
+        else{
+            Glide.with(this)
+                    .load(Uri.parse(info.getAvaUrl()))
+                    .into(mAvatar);
+        }
+        ediBalance.setText(Integer.toString(info.getBalance()));
         txtFullname.setText(info.getFullName());
         txtEmail.setText(info.getEmail());
         txtBirthday.setText(info.getBirthDay());
@@ -212,5 +231,24 @@ public class ProfileDetail extends SupportFragment {
         }
         txtPhoneNumber.setText(info.getPhoneNumber());
         txtAddress.setText(info.getAddress());
+    }
+
+    private void confirmProfileChange(){
+        AlertDialog builder = new AlertDialog.Builder(getContext()).create(); //Use context
+        builder.setTitle(R.string.confirm_dialog_title);
+        builder.setMessage(getString(R.string.confirm_dialog_description));
+        builder.setButton(Dialog.BUTTON_POSITIVE,getString(R.string.confirm_dialog_yes), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                updateUserInfo();
+                Toast.makeText(getContext(),R.string.profile_updated,Toast.LENGTH_SHORT).show();
+                ((MainActivity)getActivity()).dismiss();
+            }
+        });
+        builder.setButton(Dialog.BUTTON_NEGATIVE,getString(R.string.confirm_dialog_cancel), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
     }
 }

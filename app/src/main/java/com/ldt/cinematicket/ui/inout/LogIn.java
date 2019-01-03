@@ -36,6 +36,8 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.ldt.cinematicket.R;
 import com.ldt.cinematicket.data.MyPrefs;
@@ -43,6 +45,7 @@ import com.ldt.cinematicket.model.UserInfo;
 import com.ldt.cinematicket.ui.main.MainActivity;
 import com.ldt.cinematicket.ui.widget.fragmentnavigationcontroller.SupportFragment;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -288,8 +291,7 @@ public class LogIn extends SupportFragment implements View.OnClickListener {
                         else{
                             Log.d(TAG, "signInWithCredential:success");
                             myPrefs.setIsSignIn(true);
-                            addNewUser();
-                            ((MainActivity)getActivity()).restartHomeScreen();
+                            checkIfFirstTimeSignIn();
                         }
                     }
                 });
@@ -308,8 +310,7 @@ public class LogIn extends SupportFragment implements View.OnClickListener {
                             Log.d(TAG, "signInWithCredential:success");
                             Toast.makeText(getContext(), R.string.signin_success,Toast.LENGTH_SHORT).show();
                             myPrefs.setIsSignIn(true);
-                            addNewUser();
-                            ((MainActivity)getActivity()).restartHomeScreen();
+                            checkIfFirstTimeSignIn();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -319,13 +320,17 @@ public class LogIn extends SupportFragment implements View.OnClickListener {
                 });
     }
 
-    private void addNewUser(){
-        UserInfo info = new UserInfo();
-        FirebaseUser user = mAuth.getCurrentUser();
-
+    private void addNewUser(UserInfo info, FirebaseUser user){
         String fullname = "";
         if(user.getDisplayName() != null && !user.getDisplayName().matches("")){
             fullname = user.getDisplayName();
+        }
+
+        if(user.getPhotoUrl() != null){
+            info.setAvaUrl(user.getPhotoUrl().toString());
+        }
+        else{
+            info.setAvaUrl("");
         }
 
         info.setUserType("");
@@ -336,18 +341,73 @@ public class LogIn extends SupportFragment implements View.OnClickListener {
         info.setGender("");
         info.setPhoneNumber("");
         info.setAddress("");
+        info.setBalance(0);
+        ArrayList<Integer> idTicket = new ArrayList<>();
+        info.setIdTicket(idTicket);
+
+        Log.d(TAG, "New User Created");
 
         sendUserInfo(info);
     }
 
-    private void sendUserInfo(UserInfo user){
-        mDb.collection("user_info").document(user.getId())
-                .set(user)
+    private void updateOldUser(UserInfo info, FirebaseUser user){
+        String fullname = "";
+        if(user.getDisplayName() != null && !user.getDisplayName().matches("")){
+            fullname = user.getDisplayName();
+        }
+
+        if(user.getPhotoUrl() != null){
+            info.setAvaUrl(user.getPhotoUrl().toString());
+        }
+        else{
+            info.setAvaUrl("");
+        }
+
+        info.setFullName(fullname);
+        info.setEmail(user.getEmail());
+
+        Log.d(TAG, "User Updated");
+
+        sendUserInfo(info);
+    }
+
+    private void sendUserInfo(UserInfo info){
+        mDb.collection("user_info").document(info.getId())
+                .set(info)
                 .addOnSuccessListener(aVoid -> {
                     Log.w(TAG, "addUserToDatabase:success");
                 })
                 .addOnFailureListener(e -> {
                     Log.w(TAG, "addUserToDatabase:failure", e);
                 });
+    }
+
+    private void checkIfFirstTimeSignIn(){
+        FirebaseUser user = mAuth.getCurrentUser();
+
+        DocumentReference docRef = mDb.collection("user_info").document(user.getUid());
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                        UserInfo info = new UserInfo();
+                        info = document.toObject(UserInfo.class);
+                        updateOldUser(info,user);
+                        ((MainActivity)getActivity()).restartHomeScreen();
+                    }
+                    else {
+                        Log.d(TAG, "No such document");
+                        UserInfo info = new UserInfo();
+                        addNewUser(info,user);
+                        ((MainActivity)getActivity()).restartHomeScreen();
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
     }
 }

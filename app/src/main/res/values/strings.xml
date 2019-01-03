@@ -41,6 +41,7 @@
     <string name="signin_error">Sign-in Failed</string>
     <string name="signup_success">Sign-up Successfully</string>
     <string name="is_updating">Updating...</string>
+    <string name="profile_updated">Profile updated</string>
 
     //Error
     <string name="fullname_empty">Full Name cannot be blank</string>
@@ -61,6 +62,7 @@
     //User's Information (Profile Detail's Tab)
     <string name="user_fullname">Full Name</string>
     <string name="user_email">Email</string>
+    <string name="user_balance">Balance</string>
     <string name="user_birthday">Birthday</string>
     <string name="user_format_birthday">dd/mm/yyyy</string>
     <string name="user_gender">Gender</string>
@@ -70,6 +72,10 @@
     <string name="user_phonenumber">Phone Number</string>
     <string name="user_address">Address</string>
     <string name="btn_save">SAVE</string>
+    <string name="confirm_dialog_title">Confirm</string>
+    <string name="confirm_dialog_description">Do you want to save changes ?</string>
+    <string name="confirm_dialog_yes">YES</string>
+    <string name="confirm_dialog_cancel">CANCEL</string>
 
     <string name="trending">Trending</string>
     <string name="cinema">Cinema</string>

@@ -31,6 +31,7 @@ import com.ldt.cinematicket.model.UserInfo;
 import com.ldt.cinematicket.ui.main.MainActivity;
 import com.ldt.cinematicket.ui.widget.fragmentnavigationcontroller.SupportFragment;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 import butterknife.BindView;
@@ -232,6 +233,7 @@ public class LogUp extends SupportFragment implements View.OnClickListener{
         String fullname = Objects.requireNonNull(ediFullname.getEditText()).getText().toString().trim();
         String email = Objects.requireNonNull(ediEmail.getEditText()).getText().toString().trim();
 
+        info.setAvaUrl("");
         info.setUserType("");
         info.setId(user.getUid());
         info.setFullName(fullname);
@@ -240,6 +242,9 @@ public class LogUp extends SupportFragment implements View.OnClickListener{
         info.setGender("");
         info.setPhoneNumber("");
         info.setAddress("");
+        info.setBalance(0);
+        ArrayList<Integer> idTicket = new ArrayList<>();
+        info.setIdTicket(idTicket);
 
         sendUserInfo(info);
     }

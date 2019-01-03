@@ -50,6 +50,7 @@
     <string name="retype_match">Nhập lại và mật khẩu không khớp</string>
     <string name="terms_confirm">Xin đọc và xác nhận điều khoản và chính sách</string>
     <string name="mail_fail">Mail không được gửi đi vì một số lý do.</string>
+    <string name="profile_updated">Thông tin đã được cập nhật</string>
 
     //Forgot Password
     <string name="forgot_password">Vui lòng nhập địa chỉ email mà bạn đã tạo tài khoản. Chúng tôi sẽ gửi một liên kết để thiết lập lại mật khẩu. </string>
@@ -59,6 +60,7 @@
     //User's Information (Profile Detail's Tab)
     <string name="user_fullname">Họ tên</string>
     <string name="user_email">Thư điện tử</string>
+    <string name="user_balance">Số dư</string>
     <string name="user_birthday">Ngày sinh</string>
     <string name="user_gender">Giới tính</string>
     <string name="user_gender_male">Nam</string>
@@ -67,6 +69,10 @@
     <string name="user_phonenumber">Điện thoại</string>
     <string name="user_address">Địa chỉ</string>
     <string name="btn_save">LƯU</string>
+    <string name="confirm_dialog_title">Xác nhận</string>
+    <string name="confirm_dialog_description">Bạn có muốn lưu những thay đổi ?</string>
+    <string name="confirm_dialog_yes">CÓ</string>
+    <string name="confirm_dialog_cancel">HUỶ</string>
 
     <string name="profile_detail">Thông tin tài khoản</string>
     <string name="trending">Xu hướng</string>

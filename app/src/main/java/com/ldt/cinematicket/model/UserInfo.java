@@ -2,6 +2,8 @@ package com.ldt.cinematicket.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 public class UserInfo {
     @SerializedName("userType")
     private String userType;
@@ -9,6 +11,12 @@ public class UserInfo {
     private String id;
     @SerializedName("fullName")
     private String fullName;
+    @SerializedName("avaUrl")
+    private String avaUrl;
+    @SerializedName("idTicket")
+    private ArrayList<Integer> idTicket;
+    @SerializedName("balance")
+    private int balance;
     @SerializedName("email")
     private String email;
     @SerializedName("birthday")
@@ -19,6 +27,30 @@ public class UserInfo {
     private String phoneNumber;
     @SerializedName("address")
     private String address;
+
+    public String getAvaUrl() {
+        return avaUrl;
+    }
+
+    public void setAvaUrl(String avaUrl) {
+        this.avaUrl = avaUrl;
+    }
+
+    public ArrayList<Integer> getIdTicket() {
+        return idTicket;
+    }
+
+    public void setIdTicket(ArrayList<Integer> idTicket) {
+        this.idTicket = idTicket;
+    }
+
+    public int getBalance() {
+        return balance;
+    }
+
+    public void setBalance(int balance) {
+        this.balance = balance;
+    }
 
     public String getUserType() {
         return userType;
