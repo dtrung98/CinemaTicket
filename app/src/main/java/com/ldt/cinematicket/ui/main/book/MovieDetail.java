@@ -89,8 +89,8 @@ public class MovieDetail extends SupportFragment {
         if(movie!=null) {
 
             mTitleTextView.setText(movie.getTitle());
-
             mCastTextView.setText(movie.getCast());
+            mDescriptionTextView.setText(movie.getOpeningDay());
             mCategoryTextView.setText(movie.getGenre());
             mDirectorTextView.setText(movie.getDirector());
             mReleaseTextView.setText(movie.getOpeningDay());

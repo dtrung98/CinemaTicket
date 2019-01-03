@@ -83,7 +83,7 @@ public class LinearHolderAdapter {
         void createAndShowNewTime() {
             DetailShowTime d = new DetailShowTime();
             d.setTime("");
-            d.setRoom(mDetailShowTimes.size());
+            d.setRoom(mDetailShowTimes.size()+1);
             d.setPrice(100000);
             d.setSeatRowNumber(5);
             d.setSeatColumnNumber(5);

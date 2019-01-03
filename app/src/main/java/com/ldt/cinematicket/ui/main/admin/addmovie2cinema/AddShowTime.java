@@ -101,12 +101,13 @@ public class AddShowTime extends SupportFragment implements EventListener<QueryS
         Log.d(TAG, "onFailure");
         setOnFailure();
     }
+    long count;
 
     // Hàm này được gọi để lấy số phần tử của show time
     // Hàm này ko được gọi ở bất cứ chỗ nào khác
     @Override
     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-        long count = 0;
+        count = 0;
         if(task.getResult()!=null) {
            try {
                count = task.getResult().getLong("count");
@@ -164,10 +165,12 @@ public class AddShowTime extends SupportFragment implements EventListener<QueryS
         mSendingDialog.show();
         success_step = 1;
         mDb.collection("show_time").document(mShowTime.getID()+"").set(mShowTime).addOnSuccessListener(this).addOnFailureListener(this);
+
         if(!mCinema.getMovies().contains(mMovie.getId())){
             mCinema.getMovies().add(mMovie.getId());
             mCinema.getShowTimes().add(mShowTime.getID());
             success_step = 2;
+            mDb.collection("database_info").document("show_time_info").update("count",count);
             mDb.collection("cinema_list").document(mCinema.getId()+"").set(mCinema).addOnSuccessListener(this).addOnFailureListener(this);
         }
     }
@@ -178,7 +181,8 @@ public class AddShowTime extends SupportFragment implements EventListener<QueryS
         BottomSheetDialog dialog = new BottomSheetDialog(getActivity());
 
         dialog.setContentView(R.layout.alert_layout);
-        dialog.findViewById(R.id.comfirm).setOnClickListener(v -> { dialog.dismiss(); getMainActivity().dismiss();});
+        dialog.findViewById(R.id.comfirm).setOnClickListener(v -> { dialog.dismiss();
+        getMainActivity().dismiss();});
         dialog.show();
     }
 
@@ -267,6 +271,7 @@ public class AddShowTime extends SupportFragment implements EventListener<QueryS
 
                 s.postDelayed(() -> {
                     mSendingDialog.dismiss();
+                    if(mCallback!=null) mCallback.onUpdate();
                     mIDEditText.postDelayed(()->getMainActivity().dismiss(),350);
                 },2000);
                 s.setVisibility(View.VISIBLE);

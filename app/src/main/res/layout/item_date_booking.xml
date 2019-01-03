@@ -1,26 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingTop="5dp"
-    android:paddingBottom="10dp">
-    <TextView
+<TextView
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/text"
         android:layout_width="wrap_content"
         android:gravity="center"
         android:layout_height="25dp"
         android:text="26.09"
-        android:paddingStart="5dp"
-        android:paddingEnd="5dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/round_item_date_selected"
         android:textColor="@android:color/white"
-        android:textSize="16sp"/>
-    <View
-        android:id="@+id/mark"
-        android:layout_width="30dp"
-        android:layout_height="2dp"
-        android:background="#FF0B19"
-        android:layout_gravity="center_horizontal"
-        android:visibility="visible"/>
-</LinearLayout>
+        android:textSize="14sp"
+    android:textStyle="bold"/>

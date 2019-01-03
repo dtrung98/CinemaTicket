@@ -126,5 +126,8 @@
     <string name="exist_cinema_alert">Using a Cinema ID which already exists will replace that cinema</string>
     <string name="address">Address : %s</string>
     <string name="add_update_show_times">Add/Update Show Times</string>
+    <string name="screen">Screen</string>
+    <string name="your_balanced_is">Your balanced is </string>
+    <string name="it_is_not_enough">₫, it\'s not enough</string>
 
 </resources>
