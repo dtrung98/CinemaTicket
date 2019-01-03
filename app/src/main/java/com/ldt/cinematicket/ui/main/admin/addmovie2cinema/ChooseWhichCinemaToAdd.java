@@ -1,4 +1,4 @@
-package com.ldt.cinematicket.ui.main.admin;
+package com.ldt.cinematicket.ui.main.admin.addmovie2cinema;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,16 +12,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.ldt.cinematicket.R;
 import com.ldt.cinematicket.model.Cinema;
+import com.ldt.cinematicket.ui.main.admin.AllCinemas;
 import com.ldt.cinematicket.ui.main.root.CinemaAdapter;
 import com.ldt.cinematicket.ui.widget.fragmentnavigationcontroller.PresentStyle;
 import com.ldt.cinematicket.ui.widget.fragmentnavigationcontroller.SupportFragment;
@@ -34,11 +33,17 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AllCinemas extends SupportFragment implements OnCompleteListener<QuerySnapshot>, OnFailureListener{
-    private static final String TAG ="AllCinemas";
+public class ChooseWhichCinemaToAdd extends SupportFragment implements OnCompleteListener<QuerySnapshot>, OnFailureListener, CinemaAdapter.CinemaOnClickListener {
+    private static final String TAG ="ChooseWhichCinema";
 
-    public static AllCinemas newInstance() {
-        return new AllCinemas();
+    public static ChooseWhichCinemaToAdd newInstance() {
+        return new ChooseWhichCinemaToAdd();
+    }
+
+    @Nullable
+    @Override
+    protected View onCreateView(LayoutInflater inflater, ViewGroup container) {
+        return inflater.inflate(R.layout.admin_add_movie2cinema,container,false);
     }
 
     @BindView(R.id.back_button)
@@ -66,12 +71,6 @@ public class AllCinemas extends SupportFragment implements OnCompleteListener<Qu
         getMainActivity().dismiss();
     }
 
-    @Nullable
-    @Override
-    protected View onCreateView(LayoutInflater inflater, ViewGroup container) {
-        return inflater.inflate(R.layout.admin_all_cinemas,container,false);
-    }
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -81,6 +80,7 @@ public class AllCinemas extends SupportFragment implements OnCompleteListener<Qu
         mRecyclerView.setLayoutManager(layoutManager);
 
         mAdapter = new CinemaAdapter(getActivity());
+
         mRecyclerView.setAdapter(mAdapter);
 
         setSwipeOptionForRecyclerView();
@@ -90,7 +90,22 @@ public class AllCinemas extends SupportFragment implements OnCompleteListener<Qu
         refreshData();
     }
 
-    private void setSwipeOptionForRecyclerView() {
+        @Override
+        public void onResume() {
+            super.onResume();
+            if(mAdapter!=null)
+            mAdapter.setListener(this);
+        }
+
+        @Override
+        public void onPause() {
+            super.onPause();
+            if(mAdapter!=null)
+            mAdapter.removeListener();
+        }
+
+
+        private void setSwipeOptionForRecyclerView() {
 
     }
 
@@ -139,7 +154,11 @@ public class AllCinemas extends SupportFragment implements OnCompleteListener<Qu
 
     @Override
     public int getPresentTransition() {
-        return PresentStyle.SLIDE_LEFT;
+        return PresentStyle.SLIDE_UP;
     }
 
+    @Override
+    public void onItemClick(Cinema cinema) {
+            getMainActivity().presentFragment(ChooseWhichMovieToAdd.newInstance(cinema));
+        }
 }

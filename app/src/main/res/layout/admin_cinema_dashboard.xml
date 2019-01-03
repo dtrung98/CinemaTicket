@@ -149,6 +149,7 @@
                 app:layout_constraintTop_toTopOf="@id/add_new_cinema"
                 app:layout_constraintBottom_toBottomOf="@id/add_new_cinema"
                 app:layout_constraintEnd_toEndOf="parent"/>
+
         </android.support.constraint.ConstraintLayout>
     </android.support.v4.widget.NestedScrollView>
 </android.support.constraint.ConstraintLayout>

@@ -266,7 +266,7 @@ public class AddNewMovie extends SupportFragment implements RequestListener<Draw
         sendData(m);
     }
     void sendData(Movie movie){
-        mDb.collection("movie").document((movie.getId()-1)+"").set(movie).addOnSuccessListener(aVoid -> {
+        mDb.collection("movie").document(movie.getId()+"").set(movie).addOnSuccessListener(aVoid -> {
             setOnSuccess();
 
         }).addOnFailureListener(e -> {

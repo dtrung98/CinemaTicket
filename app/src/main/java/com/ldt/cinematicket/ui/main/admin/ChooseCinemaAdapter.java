@@ -188,27 +188,22 @@ public class ChooseCinemaAdapter extends RecyclerView.Adapter<ChooseCinemaAdapte
         public void bind(Cinema cinema) {
 
             mName.setText(cinema.getName());
-            mID.setText(String.format("%d", cinema.getId()));
+            mID.setText(String.format("ID : %d", cinema.getId()));
 
             // set Address
             String Address = cinema.getAddress();
 
-//            if (Address.length() >= 22) // Nhieu hon 22 ky tu thi nhung ky tu sau phai ghi bang ...
-//            {
-//                Address = Address.substring(0, Math.min(Address.length(), 22));
-//                Address += "...";
-//            }
 
-            mAddress.setText(Address);
+            mAddress.setText(String.format(mContext.getString(R.string.address), Address));
 
             if(mSelectedData.size() > getAdapterPosition() && mSelectedData.get(getAdapterPosition())) {
                 Log.d(TAG, "bind: select position = " + getAdapterPosition());
-                mPanel.setBackgroundResource(R.drawable.black_rounded_big_selected);
+                mPanel.setBackgroundResource(R.drawable.background_item_choose_movie_select);
                 if(!mCheckbox.isChecked())
                 mCheckbox.setChecked(true);
             }
             else {
-                mPanel.setBackgroundResource(R.drawable.black_rounded_big);
+                mPanel.setBackgroundResource(R.drawable.background_item_choose_movie);
                 if(mCheckbox.isChecked())
                 mCheckbox.setChecked(false);
             }

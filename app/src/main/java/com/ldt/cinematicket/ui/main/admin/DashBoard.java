@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ldt.cinematicket.R;
+import com.ldt.cinematicket.ui.main.admin.addmovie2cinema.ChooseWhichCinemaToAdd;
 import com.ldt.cinematicket.ui.widget.fragmentnavigationcontroller.PresentStyle;
 import com.ldt.cinematicket.ui.widget.fragmentnavigationcontroller.SupportFragment;
 
@@ -40,6 +41,10 @@ public class DashBoard extends SupportFragment {
         getMainActivity().presentFragment(CinemaManagement.newInstance());
    }
 
+   @OnClick(R.id.add_new_showtime_panel)
+   void goToChooseWhicCinemaToAdd() {
+        getMainActivity().presentFragment(ChooseWhichCinemaToAdd.newInstance());
+   }
 
     @Nullable
     @Override

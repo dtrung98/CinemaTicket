@@ -26,6 +26,26 @@ import butterknife.OnClick;
 public class CinemaAdapter extends RecyclerView.Adapter<CinemaAdapter.ItemHolder> {
     private List<Cinema> mData = new ArrayList<>();
     Context mContext;
+    private boolean mAdminMode = false;
+
+    public interface CinemaOnClickListener {
+        void onItemClick(Cinema cinema);
+    }
+    private CinemaOnClickListener  mListener;
+    public void setListener(CinemaOnClickListener listener) {
+        mListener = listener;
+    }
+    public void removeListener() {
+        mListener = null;
+    }
+
+    /*
+    Turn on this to allow adapter to show option button when swipe right
+     */
+
+    public void turnOnAdminMode() {
+        mAdminMode = true;
+    }
 
     public CinemaAdapter(Context context) {
         this.mContext = context;
@@ -81,9 +101,10 @@ public class CinemaAdapter extends RecyclerView.Adapter<CinemaAdapter.ItemHolder
 
         @OnClick(R.id.panel)
         void clickPanel() {
-//            if(mContext instanceof MainActivity)
-//                ((MainActivity) mContext).presentFragment(MovieDetail.newInstance(mData.get(getAdapterPosition())));
-            Toast.makeText(mContext, "abc", Toast.LENGTH_LONG).show();
+            if(mListener!=null) mListener.onItemClick(mData.get(getAdapterPosition()));
+            else {
+                Toast.makeText(mContext,"Clicked",Toast.LENGTH_SHORT).show();
+            }
         }
 
         public void bind(Cinema cinema) {
@@ -97,11 +118,11 @@ public class CinemaAdapter extends RecyclerView.Adapter<CinemaAdapter.ItemHolder
 
             String Address = cinema.getAddress();
 
-            if (Address.length() >= 78) // Nhieu hon 78 ky tu thi nhung ky tu sau phai ghi bang ...
-            {
-                Address = Address.substring(0, Math.min(Address.length(), 78));
-                Address += "...";
-            }
+//            if (Address.length() >= 78) // Nhieu hon 78 ky tu thi nhung ky tu sau phai ghi bang ...
+//            {
+//                Address = Address.substring(0, Math.min(Address.length(), 78));
+//                Address += "...";
+//            }
 
             txtAddress.setText(Address);
             txtHotline.setText(cinema.getHotline());

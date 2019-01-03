@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Cinema Ticket</string>
     <string name="server_client_id">675073510766-l4hq8gaup27alf05garq6t9vm9pt9o2q.apps.googleusercontent.com</string>
-    <string name="facebook_app_id">291351844854044</string>
-    <string name="fb_login_protocol_scheme">fb291351844854044</string>
+    <string name="facebook_app_id" translatable="false">291351844854044</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb291351844854044</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -74,10 +74,10 @@
     <string name="auto_id">( Auto-generated ID )</string>
     <string name="creating_new_id">Creating new ID …</string>
     <string name="fail_to_create_id">Unable to create ID, please refresh the data</string>
-    <string name="note_youtube_link"><![CDATA[* Valid youtube link format should be like\nhttps://www.youtube.com/watch?v=abc_xyz, or\nhttps://youtu.be/abc_xyz]]></string>
-    <string name="check">Check</string>
+    <string name="note_youtube_link" translatable="false"><![CDATA[* Valid youtube link format should be like\nhttps://www.youtube.com/watch?v=abc_xyz, or\nhttps://youtu.be/abc_xyz]]></string>
+    <string name="check" translatable="false">Check</string>
     <string name="youtube_pattern_id" translatable="false"><![CDATA[(?<=watch\\?v=|/videos/|embed\\/|youtu.be\\/|\\/v\\/|\\/e\\/|watch\\?v%3D|watch\\?feature=player_embedded&v=|%2Fvideos%2F|embed%‌​2F|youtu.be%2F|%2Fv%2F)[^#\\&\\?\\n]*]]></string>
-    <string name="autoplay_youtube_pattern">\?autoplay=1</string>
+    <string name="autoplay_youtube_pattern" translatable="false">\?autoplay=1</string>
     <string name="sending_data">Sending data …</string>
     <string name="choose_feature_movies">Choose Feature movies</string>
     <string name="choose_up_coming_movies">Choose Up Coming movies</string>
@@ -90,5 +90,7 @@
     <string name="detail">Detail</string>
     <string name="booking">Booking</string>
     <string name="exist_cinema_alert">Using a Cinema ID which already exists will replace that cinema</string>
+    <string name="address">Address : %s</string>
+    <string name="add_update_show_times">Add/Update Show Times</string>
 
 </resources>
