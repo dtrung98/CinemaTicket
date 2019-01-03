@@ -24,24 +24,57 @@
     <string name="id_work">ID làm việc</string>
     <string name="email"><b>Thư điện tử</b></string>
     <string name="retype_password"><b>Nhập lại mật khẩu</b></string>
-    <string name="string_4">Hoặc đăng ký bằng ...</string>
+    <string name="string_4">Hoặc đăng nhập bằng ...</string>
     <string name="string_5">Đã có tài khoản?</string>
     <string name="string_6">Đăng nhập</string>
     <string name="btn_create">Tạo tài khoản</string>
     <string name="btn_sign_in">ĐĂNG NHẬP</string>
+    <string name="btn_sign_out">ĐĂNG XUẤT</string>
     <string name="title_activity_home">HomeActivity</string>
+    <string name="terms_privacy">Khi đăng ký tôi đã xem xét và đồng ý với Điều khoản sử dụng và Chính sách bảo mật của Cinema Ticket.</string>
 
     //Message
     <string name="signin_success">Đăng nhập thành công</string>
     <string name="signin_cancel">Đăng nhập bị tạm dừng</string>
     <string name="signin_error">Đăng nhập thất bại</string>
     <string name="signup_success">Đăng ký thành công</string>
+    <string name="is_updating">Đang cập nhật...</string>
 
     //Error
+    <string name="fullname_empty">Họ tên không được trống</string>
     <string name="email_empty">Email không được trống</string>
+    <string name="email_invalid">Email không hợp lệ</string>
     <string name="password_empty">Mật khẩu không được trống</string>
     <string name="password_length">"Mật khẩu phải dài ít nhất 6 ký tự"</string>
+    <string name="retype_empty">Nhập lại mật khẩu không được trống</string>
+    <string name="retype_match">Nhập lại và mật khẩu không khớp</string>
+    <string name="terms_confirm">Xin đọc và xác nhận điều khoản và chính sách</string>
+    <string name="mail_fail">Mail không được gửi đi vì một số lý do.</string>
+    <string name="profile_updated">Thông tin đã được cập nhật</string>
 
+    //Forgot Password
+    <string name="forgot_password">Vui lòng nhập địa chỉ email mà bạn đã tạo tài khoản. Chúng tôi sẽ gửi một liên kết để thiết lập lại mật khẩu. </string>
+    <string name="btn_send">GỬI ĐI</string>
+    <string name="mail_sent">Mail đã được gửi. Vui lòng kiểm tra mail để phục hồi mật khẩu.</string>
+
+    //User's Information (Profile Detail's Tab)
+    <string name="user_fullname">Họ tên</string>
+    <string name="user_email">Thư điện tử</string>
+    <string name="user_balance">Số dư</string>
+    <string name="user_birthday">Ngày sinh</string>
+    <string name="user_gender">Giới tính</string>
+    <string name="user_gender_male">Nam</string>
+    <string name="user_gender_female">Nữ</string>
+    <string name="user_gender_other">Khác</string>
+    <string name="user_phonenumber">Điện thoại</string>
+    <string name="user_address">Địa chỉ</string>
+    <string name="btn_save">LƯU</string>
+    <string name="confirm_dialog_title">Xác nhận</string>
+    <string name="confirm_dialog_description">Bạn có muốn lưu những thay đổi ?</string>
+    <string name="confirm_dialog_yes">CÓ</string>
+    <string name="confirm_dialog_cancel">HUỶ</string>
+
+    <string name="profile_detail">Thông tin tài khoản</string>
     <string name="trending">Xu hướng</string>
     <string name="cinema">Rạp chiếu phim</string>
     <string name="my_profile">Cá nhân</string>

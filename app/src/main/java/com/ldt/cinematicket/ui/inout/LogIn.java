@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -33,10 +34,18 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.ldt.cinematicket.R;
+import com.ldt.cinematicket.data.MyPrefs;
+import com.ldt.cinematicket.model.UserInfo;
+import com.ldt.cinematicket.ui.main.MainActivity;
 import com.ldt.cinematicket.ui.widget.fragmentnavigationcontroller.SupportFragment;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -53,6 +62,8 @@ public class LogIn extends SupportFragment implements View.OnClickListener {
     private View root;
     private GoogleApiClient mGoogleSignInClient;
     private CallbackManager mCallbackManager;
+    MyPrefs myPrefs;
+    FirebaseFirestore mDb;
 
     public LogIn() {
         // Required empty public constructor
@@ -63,7 +74,9 @@ public class LogIn extends SupportFragment implements View.OnClickListener {
     @BindView(R.id.btn_google) Button btnGoogle;
     @BindView(R.id.btn_facebook) Button btnFacebook;
     @BindView(R.id.edi_email) TextInputLayout ediEmail;
+    @BindView(R.id.txt_email) TextInputEditText txtEmail;
     @BindView(R.id.edi_password) TextInputLayout ediPassword;
+    @BindView(R.id.txt_password) TextInputEditText txtPassword;
     @BindView(R.id.chb_remember) CheckBox chbRemember;
     @BindView(R.id.forgot_password) View mForgot;
 
@@ -78,6 +91,8 @@ public class LogIn extends SupportFragment implements View.OnClickListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         ButterKnife.bind(this,view);
 
+        myPrefs = new MyPrefs(getContext());
+
         root = view;
         mForgot.setOnClickListener(this);
         chbRemember.setOnClickListener(this);
@@ -88,6 +103,14 @@ public class LogIn extends SupportFragment implements View.OnClickListener {
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
+        mDb = getMainActivity().mDb;
+
+        if(myPrefs.getIsRememberMe()){
+            String[] acc = myPrefs.getAccount();
+            txtEmail.setText(acc[0]);
+            txtPassword.setText(acc[1]);
+            chbRemember.setChecked(true);
+        }
     }
 
     public static LogIn newInstance() {
@@ -101,7 +124,8 @@ public class LogIn extends SupportFragment implements View.OnClickListener {
                 signIn();
                 break;
             case R.id.sign_up:
-                ((InOutActivity)getActivity()).presentFragment(LogUp.newInstance());
+                ((MainActivity)getActivity()).dismiss();
+                ((MainActivity)getActivity()).presentFragment(LogUp.newInstance());
                 break;
             case R.id.btn_google:
                 googleSignIn();
@@ -109,26 +133,40 @@ public class LogIn extends SupportFragment implements View.OnClickListener {
             case R.id.btn_facebook:
                 facebookSignIn();
                 break;
+            case R.id.forgot_password:
+                ((MainActivity)getActivity()).presentFragment(ForgotPassword.newInstance());
+                break;
         }
     }
 
     private void signIn() {
         String email = Objects.requireNonNull(ediEmail.getEditText()).getText().toString().trim();
         String password = Objects.requireNonNull(ediPassword.getEditText()).getText().toString().trim();
+        String[] acc = {email,password};
+        myPrefs.setAccount(acc);
 
-        if(validatePassword(email,password)){
+        if(chbRemember.isChecked()){
+            myPrefs.setIsRememberMe(true);
+        }
+        else{
+            myPrefs.setIsRememberMe(false);
+        }
+
+        if(validateAccount(email,password)){
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
+                                // Sign in success
                                 Log.d(TAG, "signInWithEmail:success");
-                                ((InOutActivity)getActivity()).goToHomeScreen();
+                                Toast.makeText(getContext(), R.string.signin_success, Toast.LENGTH_LONG).show();
+                                myPrefs.setIsSignIn(true);
+                                ((MainActivity)getActivity()).restartHomeScreen();
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w(TAG, "signInWithEmail:failure", task.getException());
-                                Toast.makeText(getContext(), "Sign-in failed.",Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), R.string.signin_error,Toast.LENGTH_LONG).show();
                             }
                         }
                     });
@@ -146,7 +184,7 @@ public class LogIn extends SupportFragment implements View.OnClickListener {
                 .enableAutoManage(getActivity(), new GoogleApiClient.OnConnectionFailedListener() {
                     @Override
                     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-                        Toast.makeText(getContext(),"Sign-in Failed",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(),R.string.signin_error,Toast.LENGTH_LONG).show();
                     }
                 })
                 .addApi(Auth.GOOGLE_SIGN_IN_API,gso)
@@ -165,7 +203,6 @@ public class LogIn extends SupportFragment implements View.OnClickListener {
             public void onSuccess(LoginResult loginResult) {
                 Log.d("Success", "Login");
                 handleFacebookAccessToken(loginResult.getAccessToken());
-                Toast.makeText(getContext(), R.string.signin_success, Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -189,7 +226,7 @@ public class LogIn extends SupportFragment implements View.OnClickListener {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 // Google Sign In was successful, authenticate with Firebase
-                Toast.makeText(getContext(), "Sign-in Successfully", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), R.string.signin_success, Toast.LENGTH_LONG).show();
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account);
                 mGoogleSignInClient.clearDefaultAccountAndReconnect();
@@ -204,25 +241,39 @@ public class LogIn extends SupportFragment implements View.OnClickListener {
         }
     }
 
-    private boolean validatePassword(String email, String password){
+    private boolean validateAccount(String email, String password){
+        Boolean validate = true;
+
         if(email.isEmpty()){
             ediEmail.setError(getString(R.string.email_empty));
-            return false;
+            validate = false;
         }
-        else if(password.isEmpty()){
+        else if(!isValidEmail(email)){
+            ediEmail.setError(getString(R.string.email_invalid));
+            validate = false;
+        }
+        else{   ediEmail.setError(null);        }
+
+        if(password.isEmpty()){
             ediEmail.setError(null);
             ediPassword.setError(getString(R.string.password_empty));
-            return false;
+            validate = false;
         }
         else if(password.length()<6){
             ediEmail.setError(null);
             ediPassword.setError(getString(R.string.password_length));
-            return false;
+            validate = false;
         }
-        else{
-            ediEmail.setError(null);
-            ediPassword.setError(null);
-            return true;
+        else{   ediPassword.setError(null);    }
+
+        return validate;
+    }
+
+    public boolean isValidEmail(String email) {
+        if (email == null) {
+            return false;
+        } else {
+            return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
         }
     }
 
@@ -239,8 +290,8 @@ public class LogIn extends SupportFragment implements View.OnClickListener {
                         }
                         else{
                             Log.d(TAG, "signInWithCredential:success");
-                            Toast.makeText(getContext(), "Sign-in Success", Toast.LENGTH_LONG).show();
-                            ((InOutActivity)getActivity()).goToHomeScreen();
+                            myPrefs.setIsSignIn(true);
+                            checkIfFirstTimeSignIn();
                         }
                     }
                 });
@@ -257,13 +308,106 @@ public class LogIn extends SupportFragment implements View.OnClickListener {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-                            ((InOutActivity)getActivity()).goToHomeScreen();
+                            Toast.makeText(getContext(), R.string.signin_success,Toast.LENGTH_SHORT).show();
+                            myPrefs.setIsSignIn(true);
+                            checkIfFirstTimeSignIn();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(getContext(), "Authentication failed.",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), R.string.signin_error,Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+    }
+
+    private void addNewUser(UserInfo info, FirebaseUser user){
+        String fullname = "";
+        if(user.getDisplayName() != null && !user.getDisplayName().matches("")){
+            fullname = user.getDisplayName();
+        }
+
+        if(user.getPhotoUrl() != null){
+            info.setAvaUrl(user.getPhotoUrl().toString());
+        }
+        else{
+            info.setAvaUrl("");
+        }
+
+        info.setUserType("");
+        info.setId(user.getUid());
+        info.setFullName(fullname);
+        info.setEmail(user.getEmail());
+        info.setBirthDay("");
+        info.setGender("");
+        info.setPhoneNumber("");
+        info.setAddress("");
+        info.setBalance(0);
+        ArrayList<Integer> idTicket = new ArrayList<>();
+        info.setIdTicket(idTicket);
+
+        Log.d(TAG, "New User Created");
+
+        sendUserInfo(info);
+    }
+
+    private void updateOldUser(UserInfo info, FirebaseUser user){
+        String fullname = "";
+        if(user.getDisplayName() != null && !user.getDisplayName().matches("")){
+            fullname = user.getDisplayName();
+        }
+
+        if(user.getPhotoUrl() != null){
+            info.setAvaUrl(user.getPhotoUrl().toString());
+        }
+        else{
+            info.setAvaUrl("");
+        }
+
+        info.setFullName(fullname);
+        info.setEmail(user.getEmail());
+
+        Log.d(TAG, "User Updated");
+
+        sendUserInfo(info);
+    }
+
+    private void sendUserInfo(UserInfo info){
+        mDb.collection("user_info").document(info.getId())
+                .set(info)
+                .addOnSuccessListener(aVoid -> {
+                    Log.w(TAG, "addUserToDatabase:success");
+                })
+                .addOnFailureListener(e -> {
+                    Log.w(TAG, "addUserToDatabase:failure", e);
+                });
+    }
+
+    private void checkIfFirstTimeSignIn(){
+        FirebaseUser user = mAuth.getCurrentUser();
+
+        DocumentReference docRef = mDb.collection("user_info").document(user.getUid());
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                        UserInfo info = new UserInfo();
+                        info = document.toObject(UserInfo.class);
+                        updateOldUser(info,user);
+                        ((MainActivity)getActivity()).restartHomeScreen();
+                    }
+                    else {
+                        Log.d(TAG, "No such document");
+                        UserInfo info = new UserInfo();
+                        addNewUser(info,user);
+                        ((MainActivity)getActivity()).restartHomeScreen();
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
     }
 }
