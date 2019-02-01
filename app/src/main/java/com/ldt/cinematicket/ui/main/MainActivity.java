@@ -195,12 +195,16 @@ public class MainActivity extends FireBaseActivity  {
                             }
                             else{
                                 myPrefs.setIsAdmin(false);
+                                Toast.makeText(MainActivity.this,"Sign in account \"[admin@gmail.com],[123456]\" to access admin control center",Toast.LENGTH_LONG).show();
+
                             }
                         }
                     });
         }
         else{
             myPrefs.setIsAdmin(false);
+            Toast.makeText(MainActivity.this,"Sign in account \"[admin@gmail.com],[123456]\" to access admin control center",Toast.LENGTH_LONG).show();
+
         }
     }
 }
